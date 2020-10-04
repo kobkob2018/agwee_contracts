@@ -1,0 +1,7 @@
+vendor/
+drafts/
+composer.json
+composer.lock
+apply/img/uploads/*
+apply/pdf/*
+assets/img/uploads/*
