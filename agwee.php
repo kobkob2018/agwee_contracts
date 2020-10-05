@@ -10,7 +10,8 @@ Version: 1.0.0
 Author: Yacov Kobkob Avraham
 Author URI: http://AgweeContracts.com
 License: GPLv2 or later
-Text Domain: AgweeContracts-plugin
+Text Domain: agwee-contracts-text
+Domain Path: /languages/
 */
 /*
 This program is free software; you can redistribute it and/or
@@ -40,7 +41,7 @@ if ( !class_exists( 'AgweeContractsPlugin' ) ) {
 			}
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueueAdminScripts' ) );
 			add_action( 'admin_menu', array( $this, 'add_admin_pages' ) );
-
+			add_action('init', array($this,'plugin_init')); 
 			add_action('init', array( $this, 'add_ag_contract_form_post_type' ) );
 			add_action('template_redirect',array( $this, 'agwee_scripts' ));
 			add_filter( "plugin_action_links_$this->pluginName", array( $this, 'settings_link' ) );
@@ -59,6 +60,9 @@ if ( !class_exists( 'AgweeContractsPlugin' ) ) {
 			  ) );			  
 			} );
 			
+		}
+		public function plugin_init() {			
+			 load_textdomain( 'agwee-contracts-text' , WP_PLUGIN_DIR .'/'.dirname( plugin_basename( __FILE__ ) ) . '/languages/'. get_locale() .'.mo' );
 		}
 		public function print_ag_contract_find_page($atts){
 			wp_enqueue_script(
@@ -121,8 +125,8 @@ if ( !class_exists( 'AgweeContractsPlugin' ) ) {
 			register_post_type('ag_contract_form',
 				array(
 					'labels'      => array(
-						'name'          => __('contract_form', 'textdomain'),
-						'singular_name' => __('contract_form', 'textdomain'),
+						'name'          => __('Agwee Contract POST', 'agwee-contracts-text'),
+						'singular_name' => __('Agwee Contract POST', 'agwee-contracts-text'),
 					),
 						'public'      => true,
 						'has_archive' => true,
@@ -135,9 +139,16 @@ if ( !class_exists( 'AgweeContractsPlugin' ) ) {
 			array_push( $links, $settings_link );
 			return $links;
 		}
-		public function add_admin_pages() {
-			add_menu_page( 'AgweeContracts Plugin', 'AgweeContracts', 'manage_options', 'agweeContracts_plugin', array( $this, 'admin_index' ), 'dashicons-store', 110 );
+		public function add_admin_pages_back() {
+			add_menu_page( 'AgweeContracts Plugin', 'AgweeContracts', 'manage_options', 'agweeContracts_plugin', array( $this, 'admin_index' ), 'dashicons-store', 110 ); 
 		}
+		
+function add_admin_pages(){
+    add_menu_page('AgweeContracts Plugin',  __('Agwee Contracts', 'agwee-contracts-text'), 'edit_posts', 'agweeContracts_plugin', array($this,'admin_index') );
+    add_submenu_page('agweeContracts_plugin', __('Submitted contracts', 'agwee-contracts-text'), __('Submitted contracts', 'agwee-contracts-text'), 'edit_posts', 'agweeContracts_plugin' );
+    add_submenu_page('agweeContracts_plugin', __('Contract templates', 'agwee-contracts-text'), __('Contract templates', 'agwee-contracts-text'), 'edit_posts', '?page=agweeContracts_plugin&editor=list' );
+}		
+		
 		public function admin_index() {
 			require_once plugin_dir_path( __FILE__ ) . 'inc/admin/contracts_admin.php';
 			$agweeContracts_admin = new AgweeContracts_admin();

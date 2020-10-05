@@ -40,34 +40,34 @@ class AgweeContracts_admin{
 
 		?>
 		
-		<h3>רשימת החוזים שנחתמו באתר</h3>
-		<h3>חיפוש</h3>
+		<h3><?php echo __("Submitted contracts list", 'agwee-contracts-text'); ?></h3>
+		<h3><?php echo __("Search", 'agwee-contracts-text'); ?></h3>
 		<form action="" method="POST">
 			<br/>
 			<table>
 				<tr>
 					<td>
-						אימייל <br/><input type="text" name="for_email" value="<?php echo $this->getRequestVal('for_email'); ?>"/> 
+						<?php echo __("Email", 'agwee-contracts-text'); ?> <br/><input type="text" name="for_email" value="<?php echo $this->getRequestVal('for_email'); ?>"/> 
 					</td>
 
 					<td>
-						שם פרטי <br/><input type="text" name="for_firstname"  value="<?php echo $this->getRequestVal('for_firstname'); ?>"/> 
+						<?php echo __("First name", 'agwee-contracts-text'); ?> <br/><input type="text" name="for_firstname"  value="<?php echo $this->getRequestVal('for_firstname'); ?>"/> 
 					</td>
 					
 					<td>
-						שם משפחה <br/><input type="text" name="for_lastname"  value="<?php echo $this->getRequestVal('for_lastname'); ?>"/> 
+						<?php echo __("Last name", 'agwee-contracts-text'); ?> <br/><input type="text" name="for_lastname"  value="<?php echo $this->getRequestVal('for_lastname'); ?>"/> 
 					</td>
 				</tr>
 				<tr>
 					<td>
-						שם חוזה <br/><input type="text" name="title" value="<?php echo $this->getRequestVal('title'); ?>"/> 
+						<?php echo __("Contract title", 'agwee-contracts-text'); ?> <br/><input type="text" name="title" value="<?php echo $this->getRequestVal('title'); ?>"/> 
 					</td>			
 					<td>
-						מתאריך <br/><input type="text" name="date_from" value="<?php echo $this->getRequestVal('date_from'); ?>"/> 
+						<?php echo __("From date", 'agwee-contracts-text'); ?> <br/><input type="text" name="date_from" value="<?php echo $this->getRequestVal('date_from'); ?>"/> 
 					</td>
 					
 					<td>
-						עד תאריך <br/><input type="text" name="date_to" value="<?php echo $this->getRequestVal('date_to'); ?>"/> 
+						<?php echo __("To date", 'agwee-contracts-text'); ?> <br/><input type="text" name="date_to" value="<?php echo $this->getRequestVal('date_to'); ?>"/> 
 					</td>
 				</tr>
 				<tr>				
@@ -83,13 +83,13 @@ class AgweeContracts_admin{
 					
 							
 					
-						<input type="checkbox" name="order_by_approved" value="1" <?php echo $order_by_aproved_checked; ?> />התחל רשימה ממיילים שלא אושרו 
+						<input type="checkbox" name="order_by_approved" value="1" <?php echo $order_by_aproved_checked; ?> /><?php echo __("Begin list from none approved", 'agwee-contracts-text'); ?> 
 					</td>
 				</tr>
 				<tr>
 					
 					<td>
-						<input type="submit" value="חפש"/>
+						<input type="submit" value="<?php echo __("Search", 'agwee-contracts-text'); ?>" />
 					</td>
 				</tr>
 			</table>
@@ -102,7 +102,7 @@ class AgweeContracts_admin{
 			
 			if(!isset($_REQUEST['send_contract']) || empty($_REQUEST['send_contract'])){
 				
-				$send_contracts_msg = "לא סומנו חוזים לביצוע הפעולה";
+				$send_contracts_msg = __("No contracts was selected for the task", 'agwee-contracts-text');
 			}
 			else{
 				if($_REQUEST['sent_to'] == "cancel"){
@@ -110,7 +110,7 @@ class AgweeContracts_admin{
 						$sql = "UPDATE ag_contract_apply SET canceled= '1' WHERE AND id = $contract_id";
 						$res = $this->wpcon->get_results($sql,ARRAY_A);				
 					}
-					$send_contracts_msg = "החוזים בוטלו בהצלחה";
+					$send_contracts_msg = __("The contracts got cancelled", 'agwee-contracts-text');
 				}
 				else{
 					$user_details = agweeContracts_handler::get_user_details();
@@ -135,7 +135,7 @@ class AgweeContracts_admin{
 					}
 					
 					if(empty($contracts)){
-						$send_contracts_msg = "לא סומנו חוזים לשליחה";
+						$send_contracts_msg = __("No contracts was selected to send", 'agwee-contracts-text');
 					}
 					else{
 						
@@ -181,37 +181,37 @@ class AgweeContracts_admin{
 								foreach($contract_users as $email_user){
 									$email_find = $email_user['email']; 
 									$approve_key = $email_user['approve_key']; 
-									$email_title = "שליחה חוזרת של חוזה: ";
+									$email_title = "".__("Resend contract", 'agwee-contracts-text').": ";
 									$email_title.= $contract['title'];
-									$email_title.= " בין: ";
+									$email_title.= " ".__("Between", 'agwee-contracts-text').": ";
 									$email_title.= implode(",",$users_title_arr);
-									$email_content = "שלום ";
+									$email_content = __("Hello", 'agwee-contracts-text')." ";
 									$email_content.= $email_user['firstname']." ".$email_user['lastname'].".<br/>";
 									$contract_file_email = null;
 									
 									if($contract['pdf_path'] == ""){						
 										$enter_url = $general_page_url."&enter=$approve_key&contract_apply=$contract_apply_id";									
-										$email_content.= "לצפייה ועדכון פרטי החוזה: ";
+										$email_content.= __("To watch and update the contract", 'agwee-contracts-text').": ";
 										$email_content.= $contract['title'];
-										$email_content.= " שנחתם בין: ";
+										$email_content.= " ".__("Signed between", 'agwee-contracts-text').": ";
 										$email_content.= implode(",",$users_title_arr);	
 										$email_content.= "<br/>";
-										$email_content.= " לחץ על הלינק הבא:  <br/>";
-										$email_content.= "<a href = '$enter_url'>לחץ כאן לצפייה ועדכון החוזה</a><br/>";
+										$email_content.= " ".__("Click the next link", 'agwee-contracts-text').":  <br/>";
+										$email_content.= "<a href = '$enter_url'>".__("לחץ כאן לצפייה ועדכון החוזה", 'agwee-contracts-text')."</a><br/>";
 									}
 									else{
 										$contract_file_email = array($contract['pdf_path']);
-										$email_content.= "מצורף קובץ החוזה - ";
+										$email_content.= __("Attached, the pdf of the contract", 'agwee-contracts-text')." - ";
 										$email_content.= $contract['title'];
-										$email_content.= " שנחתם בין: ";
+										$email_content.= " ".__("Signed between", 'agwee-contracts-text').": ";
 										$email_content.= implode(",",$users_title_arr);	
 										$email_content.= "<br/>";
 										if($approve_key && $approve_key != '1'){
 											$approve_url = $general_page_url."&approve=$approve_key&contract_apply=$contract_apply_id";
-											$email_content.= "<a href = '$approve_url'>לחץ כאן על מנת לאשר את אמינות החוזה</a><br/>";
+											$email_content.= "<a href = '$approve_url'>".__("Click here to approve the reliability of the contract", 'agwee-contracts-text')."</a><br/>";
 										}
 									}
-									$email_content.= "בברכה,<br/>";
+									$email_content.= __("Greetings", 'agwee-contracts-text').",<br/>";
 									$email_content.= $user_details['name'];
 									$email_content.= "<br>";
 									$email_content.=  $host;
@@ -229,21 +229,21 @@ class AgweeContracts_admin{
 							}
 							if($contract['pdf_path'] != ""){
 								$email_find = $user_details['email']; 
-								$email_title = "שליחת חוזה למנהל האתר: ";
+								$email_title = __("Resend contract to site admin", 'agwee-contracts-text').": ";
 								$email_title.= $contract['title'];
-								$email_title.= " בין: ";
+								$email_title.= " ".__("Between", 'agwee-contracts-text').": ";
 								$email_title.= implode(",",$users_title_arr);
-								$email_content = "שלום ";
+								$email_content = __("Hello", 'agwee-contracts-text')." ";
 								$email_content.=  $user_details['name'].".<br/>";
 
 								$contract_file_email = array($contract['pdf_path']);
-								$email_content.= "מצורף קובץ החוזה - ";
+								$email_content.= __("Attached, the pdf of the contract", 'agwee-contracts-text')." - ";
 								$email_content.= $contract['title'];
-								$email_content.= " שנחתם בין: ";
+								$email_content.= " ".__("Signed between", 'agwee-contracts-text').": ";
 								$email_content.= implode(",",$users_title_arr);	
 								$email_content.= "<br/>";
 								
-								$email_content.= "בברכה,<br/>";
+								$email_content.= __("Greetings", 'agwee-contracts-text').",<br/>";
 								$email_content.= $user_details['name'];
 								$email_content.= "<br>";
 								$email_content.= $host;
@@ -258,11 +258,11 @@ class AgweeContracts_admin{
 								agweeContracts_handler::send_emails($this->callbeck_class, $header_send_to_Client, $content_send_to_Client, $ClientMail, $contract_file_email);
 								
 							}						
-							$send_contracts_msg = "החוזים שביקשת נשלחו בהצלחה";		
+							$send_contracts_msg = __("The selected contracts Sent successfully", 'agwee-contracts-text');		
 							$contracts[] = $contract;
 						}
 						if(empty($contracts)){
-							$send_contracts_msg = "לא סומנו חוזים לשליחה";
+							$send_contracts_msg = __("No contracts was selected to send", 'agwee-contracts-text');
 						}
 					}
 				}
@@ -337,9 +337,9 @@ class AgweeContracts_admin{
 		//echo $find_sql;
 		$find_res = $this->wpcon->get_results($find_sql,ARRAY_A);
 		foreach($find_res as $contract){
-			$contract['status_str'] = "עדכון פרטים";
+			$contract['status_str'] = __("Update details", 'agwee-contracts-text');
 			if($contract['pdf_path'] != ""){
-				$contract['status_str'] = "הופק קובץ";
+				$contract['status_str'] = __("A pdf created", 'agwee-contracts-text');
 			}
 			$users_sql = "SELECT * FROM ag_contract_apply_users WHERE contract_apply_id = ".$contract['id'];
 			$users_res = $this->wpcon->get_results($users_sql,ARRAY_A);
@@ -360,7 +360,7 @@ class AgweeContracts_admin{
 			$date_arr = explode("-",$date_str_1);
 			$contract['date_str'] = $date_arr[2]."-".$date_arr[1]."-".$date_arr[0];
 			if($contract['title'] == ""){
-				$contract['title'] = "ללא כותרת";
+				$contract['title'] = __("No title", 'agwee-contracts-text');
 			}
 			else{
 				$contract['title'] = $contract['title'];
@@ -407,13 +407,13 @@ class AgweeContracts_admin{
 		?>
 		
 		<?php if(empty($contracts_found)): ?>
-			<p><b style="color:red;">לא נמצאו חוזים</b></p>
+			<p><b style="color:red;"><?php echo __("No contracts found", 'agwee-contracts-text'); ?></b></p>
 		<?php else: ?>
 			<?php if($send_contracts_msg != ""): ?>
 				<p><b style="color:green;"><?php echo $send_contracts_msg; ?></b></p>
 			<?php endif; ?>
-			<b>נמצאו <?php echo count($contracts_found); ?> חוזים: </b>
-			<p>סמן את החוזים שברצונך שיילחו אליך למייל</p>
+			<b><?php echo sprintf( __("%s contracts found", 'agwee-contracts-text'),count($contracts_found)); ?>: </b>
+			<p><?php echo __("Please select the contracts to send to your mailbox", 'agwee-contracts-text'); ?></p>
 			<form action="?m=work_contracts" method="GET">
 
 				<br/>
@@ -424,12 +424,12 @@ class AgweeContracts_admin{
 				<input type="hidden" name="send_contracts" value="1" />
 				<table border="1" cellspacing="0" cellpadding="12" class="maintext">
 					<tr>
-						<th>בחירה</th>
-						<th>תאריך</th>
-						<th>ip</th>
-						<th>אימיילים</th>
-						<th>שמות</th>
-						<th>שלב התקדמות</th>
+						<th><?php echo __("Select", 'agwee-contracts-text'); ?></th>
+						<th><?php echo __("Date", 'agwee-contracts-text'); ?></th>
+						<th><?php echo __("IP", 'agwee-contracts-text'); ?></th>
+						<th><?php echo __("Emails", 'agwee-contracts-text'); ?></th>
+						<th><?php echo __("Names", 'agwee-contracts-text'); ?></th>
+						<th><?php echo __("Progress", 'agwee-contracts-text'); ?></th>
 					</tr>
 					
 					<?php foreach($contracts_found as $contract): ?>
@@ -439,7 +439,7 @@ class AgweeContracts_admin{
 					<tr>
 						<td>
 						<?php if($contract['canceled'] == '1'): ?>
-							<br/><b style="color:red;">בוטל</b>
+							<br/><b style="color:red;"><?php echo __("cancelled", 'agwee-contracts-text'); ?></b>
 						<?php else: ?>
 							<input type="checkbox" name="send_contract[]" value="<?php echo $contract['id']; ?>" />
 						<?php endif; ?>
@@ -450,11 +450,11 @@ class AgweeContracts_admin{
 						<td>
 							<table border="1" cellspacing="0" >
 								<tr>
-									<th>אימייל</th>
-									<th>IP אישור/סיבת דחייה</th>
+									<th><?php echo __("Email", 'agwee-contracts-text'); ?></th>
+									<th><?php echo __("Approve IP or Decline reason", 'agwee-contracts-text'); ?></th>
 								</tr>
 								<tr>
-									<th colspan="2">אישרו</th>
+									<th colspan="2"><?php echo __("Approved", 'agwee-contracts-text'); ?></th>
 								</tr>
 								
 								<?php foreach($contract['emails_approved_list_arr'] as $email_user): ?>
@@ -465,7 +465,7 @@ class AgweeContracts_admin{
 								<?php endforeach; ?>
 								
 								<tr>
-									<th colspan="2">לא אישרו</th>
+									<th colspan="2"><?php echo __("Waiting for approve", 'agwee-contracts-text'); ?></th>
 								</tr>
 								<?php foreach($contract['emails_approved_wait_list_arr'] as $email_user): ?>
 									<tr>
@@ -482,18 +482,18 @@ class AgweeContracts_admin{
 					<?php endforeach; ?>
 				</table>
 				<br/>
-				<b>שלח את המסומנים</b>: 
+				<b><?php echo __("Send selected", 'agwee-contracts-text'); ?></b>: 
 				<select name="sent_to">
-					<option value="onlyme">שלח רק אליי</option>
-					<option value="all">שלח אל כל המעורבים</option>
-					<option value="cancel">בטל חוזה</option>
+					<option value="onlyme"><?php echo __("Send only to me", 'agwee-contracts-text'); ?></option>
+					<option value="all"><?php echo __("Send to all participants", 'agwee-contracts-text'); ?></option>
+					<option value="cancel"><?php echo __("Cancel the contract", 'agwee-contracts-text'); ?></option>
 				</select>
 				<input type="hidden" name="main" value="work_contracts" />
 				<input type="hidden" name="for_name" value="<?php echo $_GET['for_name']; ?>" />
 				<input type="hidden" name="for_email" value="<?php echo $_GET['for_email']; ?>" />
 				<input type="submit" value="שלח"/>
 				<br/>
-				<b style="color:red">אל מנהל האתר יישלחו רק חוזים שהקובץ שלהם כבר הופק</b>
+				<b style="color:red"><?php echo __("Only done cotracts with PDF will be sent to admin", 'agwee-contracts-text'); ?></b>
 			</form>			
 		<?php endif; ?>
 		
@@ -513,25 +513,54 @@ class AgweeContracts_admin{
 		
 		
 		?>
-			<h2>ניהול חוזה: <?php echo $contract_data['title']; ?></h2>
+			<div class="ag_editor_beck_button">
+				<a class="editor_list_menu_item" href="?page=agweeContracts_plugin&editor=list"><< <?php echo __("Back to Contract list", 'agwee-contracts-text'); ?></a>
+			</div>
+			<a class="contract-demo-link" style="display: block;color: #1a1aa0;float: left;margin: 10px;font-size: 21px;" target="_BLANK" href="<?php echo $this->callbeck_class->get_contract_demo_url($contract_id); ?>"><?php echo __("Contract PDF", 'agwee-contracts-text'); ?></a>
+			<h2 class="ag_editor_h2"><?php echo __("Edit Contract", 'agwee-contracts-text'); ?>: <?php echo $contract_data['title']; ?></h2>
 			<table border="0" cellpadding="5">
-				<tr>
-					<th><a class="editor_list_menu_item" href="?page=agweeContracts_plugin&editor=list">חזרה לרשימה</a></th>
-					<th><a class="editor_general_menu_item" href="?page=agweeContracts_plugin&editor=general&contract_id=<?php echo $contract_id; ?>">כללי</a></th>
-					<th><a class="editor_fields_menu_item" href="?page=agweeContracts_plugin&editor=fields&contract_id=<?php echo $contract_id; ?>">שדות בחוזה</a></th>
-					<th><a class="editor_content_menu_item" href="?page=agweeContracts_plugin&editor=content&contract_id=<?php echo $contract_id; ?>">תוכן</a></th>
-					<th><a onclick= "return confirm('האם אתה בטוח שברצונך למחוק את החוזה?')" class="editor_content_menu_item" style="color:red;" href="?page=agweeContracts_plugin&editor=general&delete_contract=1&contract_id=<?php echo $contract_id; ?>">מחיקה</a></th>
-				</tr>
-				<tr>
-					<th colspan="3" style="text-align:right;"><a class="editor_list_menu_item" style="color:blue;" target="_BLANK" href="<?php echo $site_url; ?>/?m=work_contract_form&contract_id=<?php echo $contract_id; ?>">עמוד הטופס של החוזה</a></th>
+				<tr class="ag_editor_menu_items">
 					
-					<th colspan="3"><a class="editor_list_menu_item" style="color:blue;" target="_BLANK" href="<?php echo $this->callbeck_class->get_contract_demo_url($contract_id); ?>">הדמייה של חוזה</a></th>
+					<th><a class="editor_general_menu_item" href="?page=agweeContracts_plugin&editor=general&contract_id=<?php echo $contract_id; ?>"><?php echo __("Main settings", 'agwee-contracts-text'); ?></a></th>
+					<th><a class="editor_fields_menu_item" href="?page=agweeContracts_plugin&editor=fields&contract_id=<?php echo $contract_id; ?>"><?php echo __("Contract fields", 'agwee-contracts-text'); ?></a></th>
+					<th><a class="editor_content_menu_item" href="?page=agweeContracts_plugin&editor=content&contract_id=<?php echo $contract_id; ?>"><?php echo __("Content", 'agwee-contracts-text'); ?></a></th>
+					<th><a onclick= "return confirm('<?php echo __("Do you want to delete this contract?", 'agwee-contracts-text'); ?>')" class="editor_del_menu_item" style="color:red;" href="?page=agweeContracts_plugin&editor=general&delete_contract=1&contract_id=<?php echo $contract_id; ?>"><?php echo __("Delete", 'agwee-contracts-text'); ?></a></th>
+					<th colspan="3"></th>
+				</tr>
+				<tr class="ag_editor_submenu_items">
+					<th colspan="5" style="text-align:right;"><?php echo __("Shortcode to add the contract form to content", 'agwee-contracts-text'); ?>: 
+						<input type="text" editonly="1" value='[ag_contract_form id="<?php echo $contract_id; ?>"]' />
+					</th>
+					
+					
 				</tr>			
 				
 			</table>
 			
 			<style type="text/css">
-				.maintext a.editor_<?php echo $_GET['editor']; ?>_menu_item{color:gray;text-decoration:none;}
+				.ag_editor_menu_items th{padding:10px 2px;}
+				.ag_editor_menu_items a{
+background: #a4b3ff;
+    font-size: 18px;
+    margin: 0px;
+    padding: 9px;
+    text-decoration: none;
+    color: #14483e;
+    border-radius: 4px;
+    border: 2px solid;					
+				}
+				.ag_editor_menu_items a:hover{background:#14483e;color:#a4b3ff;}
+				.ag_editor_menu_items a.editor_<?php echo $_GET['editor']; ?>_menu_item{background:#eaeeff;}
+				.ag_editor_beck_button a{
+					padding: 10px 0px 0px;
+					font-size: 19px;
+					font-weight: bold;
+					display:block;
+					margin-top:15px;
+				}
+				.ag_editor_h2{font-size: 22px;}
+				.ag_editor_submenu_items th{padding-top:15px;}
+				.ag_editor_submenu_items a{font-size:18px;}
 			</style>
 		<?php
 	}
@@ -548,14 +577,14 @@ class AgweeContracts_admin{
 		$sql = "SELECT * FROM ag_contract_design WHERE 1";
 		$contract_list = $this->wpcon->get_results($sql,ARRAY_A);
 		?>
-		<h2>ניהול חוזים</h2>
+		<h2><?php echo __("Contracts Management", 'agwee-contracts-text'); ?></h2>
 		<div>
 		<form action="" method="POST">
-			<h2>צור חוזה חדש:</h2>
-			<b>כותרת החוזה: </b><input type="text" name="contract_title"/> <input type="submit" name="create_new_contract" value="שמור"/>
+			<h2><?php echo __("Create a new Contract", 'agwee-contracts-text'); ?>:</h2>
+			<b><?php echo __("The Contract title", 'agwee-contracts-text'); ?>: </b><input type="text" name="contract_title"/> <input type="submit" name="create_new_contract" value="<?php echo __("Save", 'agwee-contracts-text'); ?>"/>
 		</form>
 		</div>
-		<h2>רשימת חוזים:</h2>
+		<h2><?php echo __("Contracts list", 'agwee-contracts-text'); ?>:</h2>
 		<table border = '0'>
 			
 				<?php foreach($contract_list as $contract): ?>
@@ -639,10 +668,10 @@ class AgweeContracts_admin{
 						$ext_str = strtolower($ext_str);
 						$file_error = false;
 						if($ext_str!="png" && $ext_str!="jpg" && $ext_str!="gif"){
-							$file_error = "התמונה שהעלית לא תקינה(ניתן להעלות קבצים עם הסיומות הבאות בלבד: gif,jpg,png)";
+							$file_error = __("Unable to upload image(supported extentions: gif,jpg,png)", 'agwee-contracts-text');
 						}
 						elseif($_FILES[$temp_name]["size"] > 500000){
-							$file_error = "התמונה שהעלית גדולה מידיי";
+							$file_error = __("The image you try to upload is too large", 'agwee-contracts-text');
 						}
 						else{
 							
@@ -675,23 +704,23 @@ class AgweeContracts_admin{
 			$contract['foot_px'] = 40;
 		}	
 		?>
-			<h2>פרטים כללים</h2>
+			<h2><?php echo __("Main settings", 'agwee-contracts-text'); ?></h2>
 			<form action="" method="POST" enctype="multipart/form-data">
 				<input type="hidden" name="edit_ag_contract_design" value="<?php echo $contract['id']; ?>" /> 
 				<div style="padding:10px; border:1px solid blue; margin-top:10px;">
-					<b>כותרת</b><br/>
+					<b><?php echo __("Title", 'agwee-contracts-text'); ?></b><br/>
 					<input type="text" name="title" value="<?php echo $contract['title']; ?>" /><br/>
 					<br/>
-					<b>מזהה(לצרכי מערכת,ניתן להשאיר ריק)</b><br/>
+					<b><?php echo __("Identifier(For system use. can leave this empty)", 'agwee-contracts-text'); ?></b><br/>
 					<input type="text" name="identifier" value="<?php echo $contract['identifier']; ?>" /><br/>
-					<h3>מיקום טקסט</h3>
-					<b>מרחק מלמעלה</b><br/>
+					<h3><?php echo __("Text margins", 'agwee-contracts-text'); ?></h3>
+					<b><?php echo __("Margin top", 'agwee-contracts-text'); ?></b><br/>
 					<input type="text" name="head_px" value="<?php echo $contract['head_px']; ?>" /><br/>
-					<b>מרחק מלמטה</b><br/>
+					<b><?php echo __("Margin bottom", 'agwee-contracts-text'); ?></b><br/>
 					<input type="text" name="foot_px" value="<?php echo $contract['foot_px']; ?>" /><br/>
 				</div>			
 				<div style="padding:10px; border:1px solid blue; margin-top:10px;">
-					<b>תמונת ראש</b><br/>
+					<b><?php echo __("Header image", 'agwee-contracts-text'); ?></b><br/>
 					<?php if($contract['header_img'] != ""): ?>
 						<div>
 							<img style="max-width:100%;" src ="<?php echo $asset_img_httppath."/".$contract['header_img']; ?>?t=<?php echo $time; ?>"/>
@@ -703,7 +732,7 @@ class AgweeContracts_admin{
 					<div style="clear:both;"></div>
 				</div>
 				<div style="padding:10px; border:1px solid blue; margin-top:10px;">
-					<b>תמונת תחתית</b><br/>
+					<b><?php echo __("Footer image", 'agwee-contracts-text'); ?></b><br/>
 					<?php if($contract['footer_img'] != ""): ?>
 						<div>
 							<img style="max-width:100%;" src ="<?php echo $asset_img_httppath."/".$contract['footer_img']; ?>?t=<?php echo $time; ?>"/>
@@ -717,8 +746,8 @@ class AgweeContracts_admin{
 
 				<?php
 				
-					$save_button_style = "font-size:30px;font-weight:bold;display:block; height:87px;width:200px;border-radius:50px;margin:auto;margin-top:20px;background:#eae4e4;color:#8e7d7d;cursor:pointer;";
-					echo "<input type='submit' value='שמירה' class='submit_style' style = '".$save_button_style."'>";
+					$save_button_style = "font-size:30px;font-weight:bold;display:block; height:87px;width:200px;border-radius:50px;margin:auto;margin-top:20px;background:#f9f9f9;color:#8e7d7d;cursor:pointer;";
+					echo "<input type='submit' value='".__("Save", 'agwee-contracts-text')."' class='submit_style' style = '".$save_button_style."'>";
 				?>
 			</form>
 		<?php
@@ -741,31 +770,37 @@ class AgweeContracts_admin{
 		$form_fields_defult = agweeContracts_handler::get_defult_fields_arr($contract_id);
 		$form_fields = agweeContracts_handler::create_fields_arr_from_contract($contract_id);
 		?>
-		<h2>שדות למילוי בחוזה</h2>
+		<style type="text/css">
+			.ag_contract_fields_editor{font-size:18px;}
+			.ag_contract_fields_editor tr{line-height:30px;}
+			.ag_contract_fields_editor .fieldsdoor{}
+			.ag_contract_fields_editor .add_field_button{font-size: 25px; float: left; color: green;  margin: 10px;}
+			.add_user_button{font-size: 25px; float: right; color: green;  margin: 10px;}
+		</style>
+		<h2><?php echo __("The Contract fields", 'agwee-contracts-text'); ?></h2>
 		<form name='edit_content_form' method='post' action=''>
 		<input type='hidden' name='contract_id' value='<?php echo $contract_id; ?>' />
-		<h3>שדות למילוי בחוזה</h3>
-		<div id='' style= 'text-align:right;'>
+		<div class="ag_contract_fields_editor" id='' style= 'text-align:right;'>
 		<hr/>
 			<table id='' border='1' style= 'border-collapse:collapse;text-align:right;min-width:650px;' cellpadding='5'>
 
-				<tr class='tr_general tr_general_main' style='background:#ffffc9;'>
+				<tr class='tr_general tr_general_main' style='background:#ffffdf;'>
 					<th colspan= '2'>
-						פרטים כלליים:
+						<?php echo __("Main details", 'agwee-contracts-text'); ?>:
 						<br/>
-						<a class='fieldsdoor' style='color:blue;font-weight:normal;font-size:12px;' href='javascript://' onclick='return showhide_general(this);' rel='open'><span class='showstr'>הצג</span><span class='hidestr' style='display:none'>הסתר</span> שדות כלליים</a>
+						<a class='fieldsdoor' style='color:blue;font-weight:normal;' href='javascript://' onclick='return showhide_general(this);' rel='open'><span class='showstr'><?php echo __("Show", 'agwee-contracts-text'); ?></span><span class='hidestr' style='display:none'><?php echo __("Hide", 'agwee-contracts-text'); ?></span> <?php echo __("Main fields", 'agwee-contracts-text'); ?></a>
 					</th>
-					<th colspan= '20'> תגית <br/><input type='text' name='fields[general_t_title]' value='<?php echo $form_fields['general']['title']; ?>' /></th>
+					<th colspan= '20'> <?php echo __("Tag", 'agwee-contracts-text'); ?> <br/><input type='text' name='fields[general_t_title]' value='<?php echo $form_fields['general']['title']; ?>' /></th>
 					
 				</tr>
 				<?php $last_key= 0; ?>
 				<tr class='tr_general'>
-					<th>מיקום</th>
-					<th>כותרת השדה</th>
-					<th>ערך ברירת מחדל</th>
-					<th>שדה חובה</th>
-					<th>סוג השדה</th>
-					<th>אפשר עריכה</th>
+					<th><?php echo __("Location", 'agwee-contracts-text'); ?></th>
+					<th><?php echo __("Field Title", 'agwee-contracts-text'); ?></th>
+					<th><?php echo __("Default value", 'agwee-contracts-text'); ?></th>
+					<th><?php echo __("Is required", 'agwee-contracts-text'); ?></th>
+					<th><?php echo __("Field type", 'agwee-contracts-text'); ?></th>
+					<th><?php echo __("Allow edit", 'agwee-contracts-text'); ?></th>
 					<th></th>
 				</tr>
 				
@@ -793,23 +828,23 @@ class AgweeContracts_admin{
 						<td><?php echo agweeContracts_handler::create_field_yesno_select("fields[general_field_t_".$key."_i_required]",$fields_group['required']); ?></td>	
 						<td><?php echo agweeContracts_handler::create_field_type_select("fields[general_field_t_".$key."_i_type]",$fields_group['type']); ?></td>
 						<td><?php echo agweeContracts_handler::create_field_yesno_select("fields[general_field_t_".$key."_i_allowedit]",$fields_group['allowedit']); ?></td>	
-						<th style='text-align:center;background:#ffd3d3;'><a href='javascript://' title='הסר שדה'  onclick='return remove_general_field(<?php echo $key; ?>)' style='color:red;text-decoration:none;display:block;width:20px;'>X</a></th>
+						<th style='text-align:center;background:#ffd3d3;'><a href='javascript://' title='<?php echo __("Remove field", 'agwee-contracts-text'); ?>'  onclick='return remove_general_field(<?php echo $key; ?>)' style='color:red;text-decoration:none;display:block;width:20px;'>X</a></th>
 					</tr>
 					
 				<?php endforeach; ?>
 				
 				<tr class='tr_general tr_general_after'></tr>
-				<tr class='tr_general' style='background:#eae4e4;'>
+				<tr class='tr_general' style='background:#f9f9f9;'>
 							<td colspan= '20' style='text-align:center'>
-								<button style='padding: 15px 43px; font-size: 20px;width:100%; background:#ffffc9;' type='button' onclick='return add_general_field(this)' rel='<?php echo $last_key; ?>'>
-									הוסף שדה כללי
-								</button>
+							
+							
+							<button class="add_field_button" type="button" onclick="return add_general_field(this)" rel="1"  style="">+<?php echo __("Add a Global field", 'agwee-contracts-text'); ?></button>
 							</td>
 						</tr>		
 				
 				<tr>
-				<th colspan= '2'>משתתפים:</th>
-				<th colspan= '20'>תגית <br/><input type='text' name='fields[users_fields_t_title]' value='<?php echo $form_fields['users_fields']['title']; ?>' /></th></tr>
+				<th colspan= '2'><?php echo __("Participants", 'agwee-contracts-text'); ?>:</th>
+				<th colspan= '20'><?php echo __("Tag", 'agwee-contracts-text'); ?> <br/><input type='text' name='fields[users_fields_t_title]' value='<?php echo $form_fields['users_fields']['title']; ?>' /></th></tr>
 				<?php $last_user = 0; ?>
 				<?php foreach($form_fields['users_fields']['users'] as $user_key=>$user_group){ ?>
 					<?php 
@@ -821,33 +856,33 @@ class AgweeContracts_admin{
 						$last_user = $user_group['identifier'];
 					}
 					?>
-					<tr class='tr_user_<?php echo $user_key; ?> tr_user_<?php echo $user_key; ?>_main' style='background:#ffffc9;'>
+					<tr class='tr_user_<?php echo $user_key; ?> tr_user_<?php echo $user_key; ?>_main' style='background:#ffffdf;'>
 					
 					
 								<th colspan= '2'>
 									<input type='hidden' name='fields[users_t_<?php echo $user_key; ?>_uid_identifier]' value='<?php echo $user_group['identifier']; ?>' />
-									משתתף <?php echo $user_key; ?>: <br/>
-									<a class='fieldsdoor' style='color:blue;font-weight:normal;font-size:12px;' href='javascript://' onclick='return showhide_user(this,<?php echo $user_key; ?>);' rel='open'><span class='showstr'>הצג</span><span class='hidestr' style='display:none'>הסתר</span> שדות</a>
+									<?php echo __("Participant", 'agwee-contracts-text'); ?> <?php echo $user_key; ?>: <br/>
+									<a class='fieldsdoor' style='color:blue;font-weight:normal;' href='javascript://' onclick='return showhide_user(this,<?php echo $user_key; ?>);' rel='open'><span class='showstr'><?php echo __("Show", 'agwee-contracts-text'); ?></span><span class='hidestr' style='display:none'><?php echo __("Hide", 'agwee-contracts-text'); ?></span> <?php echo __("שדות", 'agwee-contracts-text'); ?></a>
 								</th>
 								<th colspan= '2'>
-									תפקיד <br/><input type='text' name='fields[users_t_<?php echo $user_key; ?>_uid_role_name]' value='<?php echo $user_group['role_name']; ?>' /> 
+									<?php echo __("Role", 'agwee-contracts-text'); ?> <br/><input type='text' name='fields[users_t_<?php echo $user_key; ?>_uid_role_name]' value='<?php echo $user_group['role_name']; ?>' /> 
 									
 								</th>
 								<th colspan= '2'>
-									מיקום - <input type='text' name='fields[users_t_<?php echo $user_key; ?>_uid_order]' value='<?php echo $user_group['order']; ?>' style='width:35px;'/> 
+									<?php echo __("Location", 'agwee-contracts-text'); ?> - <input type='text' name='fields[users_t_<?php echo $user_key; ?>_uid_order]' value='<?php echo $user_group['order']; ?>' style='width:35px;'/> 
 								 
 								</th>	
-								<th style='text-align:center;'><a href='javascript://' title='מחק משתתף' onclick='return remove_user(<?php echo $user_key; ?>)' style='color:red;text-decoration:none;display:block;width:20px;'>X</a></th>
+								<th style='text-align:center;'><a href='javascript://' title='<?php echo __("Remove participant", 'agwee-contracts-text'); ?>' onclick='return remove_user(<?php echo $user_key; ?>)' style='color:red;text-decoration:none;display:block;width:20px;'>X</a></th>
 							</tr>				
 					
 					<?php $last_key = 0; ?>
 					<tr class='tr_user_<?php echo $user_key; ?>'>
-						<th>מיקום</th>
-						<th>כותרת השדה</th>
-						<th>ערך ברירת מחדל</th>
-						<th>שדה חובה</th>
-						<th>סוג השדה</th>
-						<th>אפשר עריכה</th>
+						<th><?php echo __("Location", 'agwee-contracts-text'); ?></th>
+						<th><?php echo __("Field Title", 'agwee-contracts-text'); ?></th>
+						<th><?php echo __("Default value", 'agwee-contracts-text'); ?></th>
+						<th><?php echo __("Is required", 'agwee-contracts-text'); ?></th>
+						<th><?php echo __("Field type", 'agwee-contracts-text'); ?></th>
+						<th><?php echo __("Allow edit", 'agwee-contracts-text'); ?></th>
 						<th></th>
 						
 					</tr>
@@ -877,30 +912,33 @@ class AgweeContracts_admin{
 							<td><?php echo agweeContracts_handler::create_field_yesno_select("fields[user_field_t_".$user_key."_uid_".$key."_i_required]",$fields_group['required']); ?></td>
 							<td><?php echo agweeContracts_handler::create_field_type_select("fields[user_field_t_".$user_key."_uid_".$key."_i_type]",$fields_group['type']); ?></td>
 							<td><?php echo agweeContracts_handler::create_field_yesno_select("fields[user_field_t_".$user_key."_uid_".$key."_i_allowedit]",$fields_group['allowedit']); ?></td>	
-							<th style='text-align:center;background:#ffd3d3;'><a href='javascript://' title='הסר שדה'  onclick='return remove_user_field(<?php echo $user_key; ?>,<?php echo $key; ?>)' style='color:red;text-decoration:none;display:block;width:20px;'>X</a></th>
+							<th style='text-align:center;background:#ffd3d3;'><a href='javascript://' title='<?php echo __("Remove field", 'agwee-contracts-text'); ?>'  onclick='return remove_user_field(<?php echo $user_key; ?>,<?php echo $key; ?>)' style='color:red;text-decoration:none;display:block;width:20px;'>X</a></th>
 						</tr>
 						
 					<?php } ?>
 					<tr class='tr_user_<?php echo $user_key; ?> tr_user_<?php echo $user_key; ?>_after'></tr>
-					<tr class='tr_user_<?php echo $user_key; ?>' style='background:#eae4e4;'>
+					<tr class='tr_user_<?php echo $user_key; ?>' style='background:#f9f9f9;'>
 							<td colspan= '20' style='text-align:center;'>
-								<button style='padding: 15px 43px; font-size: 20px;width:100%; background:#fafafa;' type='button' onclick='return add_user_field(this,<?php echo $user_key; ?>)' rel='<?php echo $last_key; ?>'>
-									הוסף שדה למשתתף <?php echo $user_key; ?>
+								<button class='add_field_button' style='' type='button' onclick='return add_user_field(this,<?php echo $user_key; ?>)' rel='<?php echo $last_key; ?>'>
+									+ <?php echo __("Add field to Participant", 'agwee-contracts-text'); ?> - <?php echo $user_key; ?>
 								</button>
 							</td>
 						</tr>
 					
 				<?php } ?>
-				<tr class='tr_add_user' style='background:#eae4e4;'>
+				<tr class='tr_add_user' style='background:#f9f9f9;'>
 							<td colspan= '20' style='text-align:center'>
-								<button style='padding: 15px 43px; font-size: 20px;width:100%;background:#ffffc9;' type='button' onclick='return add_user(this)' rel='<?php echo $last_user; ?>'>
-									הוסף משתתף
+								<button class="add_user_button" style='' type='button' onclick='return add_user(this)' rel='<?php echo $last_user; ?>'>
+									+ <?php echo __("Add participant", 'agwee-contracts-text'); ?>
 								</button>
 							</td>
 						</tr>
+				<tr class='tr_save_button' style='background:#f9f9f9;'>
+					<td colspan= '20' style='text-align:center'>
+						<input type='submit' value='<?php echo __("Click here to save", 'agwee-contracts-text'); ?>' class='submit_style' style = 'font-size: 42px;width:100%;padding: 8px;font-weight: bold;color: #408e40;'>
+					</td>
+				</tr>		
 			</table>
-			<?php $save_button_style = "font-size:30px;font-weight:bold;display:block; height:87px;width:200px;border-radius:50px;margin:auto;margin-top:20px;background:#eae4e4;color:#8e7d7d;cursor:pointer;"; ?>
-			<input type='submit' value='שמירה' class='submit_style' style = '<?php echo $save_button_style; ?>'>
 		</div>
 		</form>
 		<!-- script templates -->
@@ -920,36 +958,36 @@ class AgweeContracts_admin{
 				<td><?php echo agweeContracts_handler::create_field_yesno_select("fields[general_field_t_".$key."_i_required]",'1'); ?></td>
 				<td><?php echo agweeContracts_handler::create_field_type_select("fields[general_field_t_".$key."_i_type]",''); ?></td>
 				<td><?php echo agweeContracts_handler::create_field_yesno_select("fields[general_field_t_".$key."_i_allowedit]",'1'); ?></td>	
-				<th style='text-align:center;background:#ffd3d3;'><a href='javascript://' title='הסר שדה'  onclick='return remove_general_field(<?php echo $key; ?>)' style='color:red;text-decoration:none;display:block;width:20px;'>X</a></th>		
+				<th style='text-align:center;background:#ffd3d3;'><a href='javascript://' title='<?php echo __("Remove field", 'agwee-contracts-text'); ?>'  onclick='return remove_general_field(<?php echo $key; ?>)' style='color:red;text-decoration:none;display:block;width:20px;'>X</a></th>		
 			</tr>
 			
 
 
 			<!-- full user template -->
-			<tr class='tr_user_<?php echo $user_key; ?> tr_user_<?php echo $user_key; ?>_main tr_user_temp_<?php echo $user_key; ?>' style='background:#ffffc9;'>
+			<tr class='tr_user_<?php echo $user_key; ?> tr_user_<?php echo $user_key; ?>_main tr_user_temp_<?php echo $user_key; ?>' style='background:#ffffdf;'>
 				<th colspan= '2'>
 					<input type='hidden' name='fields[users_t_<?php echo $user_key; ?>_uid_identifier]' value='<?php echo $user_key; ?>' />
-					משתתף <?php echo $user_key; ?>: 
+					<?php echo __("Participant", 'agwee-contracts-text'); ?> <?php echo $user_key; ?>: 
 					<br/>
-					<a class='fieldsdoor dum_template' style='color:blue;font-weight:normal;font-size:12px;' href='javascript://' onclick='return showhide_user(this,<?php echo $user_key; ?>);' rel='open'><span class='showstr' style='display:none'>הצג</span><span class='hidestr'>הסתר</span> שדות</a>
+					<a class='fieldsdoor dum_template' style='color:blue;font-weight:normal;' href='javascript://' onclick='return showhide_user(this,<?php echo $user_key; ?>);' rel='open'><span class='showstr' style='display:none'><?php echo __("Show", 'agwee-contracts-text'); ?></span><span class='hidestr'><?php echo __("Hide", 'agwee-contracts-text'); ?></span> <?php echo __("Fields", 'agwee-contracts-text'); ?></a>
 				</th>
 				<th colspan= '2'>
-					תפקיד <br/><input type='text' name='fields[users_t_<?php echo $user_key; ?>_uid_role_name]' value='' /> 
+					<?php echo __("Role", 'agwee-contracts-text'); ?> <br/><input type='text' name='fields[users_t_<?php echo $user_key; ?>_uid_role_name]' value='' /> 
 				</th>
 				<th colspan= '2'>
-					מיקום - <input type='text' name='fields[users_t_<?php echo $user_key; ?>_uid_order]' value='10'  style='width:35px;'/> 
+					<?php echo __("Location", 'agwee-contracts-text'); ?> - <input type='text' name='fields[users_t_<?php echo $user_key; ?>_uid_order]' value='10'  style='width:35px;'/> 
 				 
 				</th>
-				<th style='text-align:center;'><a href='javascript://' title='מחק משתתף'  onclick='return remove_user(<?php echo $user_key; ?>)' style='color:red;text-decoration:none;display:block;width:20px;'>X</a></th>
+				<th style='text-align:center;'><a href='javascript://' title='<?php echo __("Remove participant", 'agwee-contracts-text'); ?>'  onclick='return remove_user(<?php echo $user_key; ?>)' style='color:red;text-decoration:none;display:block;width:20px;'>X</a></th>
 			</tr>
 			<?php $last_key = 0; ?>
 			<tr class='tr_user_<?php echo $user_key; ?> tr_user_temp_<?php echo $user_key; ?>'>
-				<th>מיקום</th>
-				<th>כותרת השדה</th>
-				<th>ערך ברירת מחדל</th>
-				<th>שדה חובה</th>
-				<th>סוג השדה</th>
-				<th>אפשר עריכה</th>
+				<th><?php echo __("Location", 'agwee-contracts-text'); ?></th>
+				<th><?php echo __("Field Title", 'agwee-contracts-text'); ?></th>
+				<th><?php echo __("Default value", 'agwee-contracts-text'); ?></th>
+				<th><?php echo __("Is required", 'agwee-contracts-text'); ?></th>
+				<th><?php echo __("Field type", 'agwee-contracts-text'); ?></th>
+				<th><?php echo __("Allow edit", 'agwee-contracts-text'); ?></th>
 				<th></th>
 			</tr>
 			 
@@ -983,10 +1021,10 @@ class AgweeContracts_admin{
 				
 			<?php } ?>
 			<tr class='tr_user_<?php echo $user_key; ?> tr_user_temp_<?php echo $user_key; ?> tr_user_<?php echo $user_key; ?>_after'></tr>
-			<tr class='tr_user_<?php echo $user_key; ?> tr_user_temp_<?php echo $user_key; ?> ' style='background:#eae4e4;'>
+			<tr class='tr_user_<?php echo $user_key; ?> tr_user_temp_<?php echo $user_key; ?> ' style='background:#f9f9f9;'>
 						<td colspan= '20' style='text-align:center'>
-							<button style='padding: 15px 43px; font-size: 20px; width:100%; background:#fafafa;' type='button' onclick='return add_user_field(this,<?php echo $user_key; ?>)' rel='$last_key'>
-								הוסף שדה למשתתף <?php echo $user_key; ?>
+							<button class='add_field_button' style='' type='button' onclick='return add_user_field(this,<?php echo $user_key; ?>)' rel='$last_key'>
+								+ <?php echo __("Add field to participant", 'agwee-contracts-text'); ?> - <?php echo $user_key; ?>
 							</button>
 						</td>
 					</tr>
@@ -1003,7 +1041,7 @@ class AgweeContracts_admin{
 					<td><?php echo agweeContracts_handler::create_field_yesno_select("fields[user_field_t_".$user_key."_uid_".$key."_i_required]",'1'); ?></td>
 					<td><?php echo agweeContracts_handler::create_field_type_select("fields[user_field_t_".$user_key."_uid_".$key."_i_type]",''); ?></td>
 					<td><?php echo agweeContracts_handler::create_field_yesno_select("fields[user_field_t_".$user_key."_uid_".$key."_i_allowedit]",'1'); ?></td>		
-					<th style='text-align:center;background:#ffd3d3;'><a href='javascript://' title='הסר שדה'  onclick='return remove_user_field(<?php echo $user_key; ?>,<?php echo $key; ?>)' style='color:red;text-decoration:none;display:block;width:20px;'>X</a></th>
+					<th style='text-align:center;background:#ffd3d3;'><a href='javascript://' title='<?php echo __("Remove field", 'agwee-contracts-text'); ?>'  onclick='return remove_user_field(<?php echo $user_key; ?>,<?php echo $key; ?>)' style='color:red;text-decoration:none;display:block;width:20px;'>X</a></th>
 				</tr>	
 			
 		</table>	
@@ -1105,7 +1143,7 @@ class AgweeContracts_admin{
 				});
 			}	
 			function remove_user(uid){
-				if(!confirm("האם למחוק את המשתתף?")){
+				if(!confirm("<?php echo __("האם למחוק את המשתתף?", 'agwee-contracts-text'); ?>")){
 					return;
 				}
 				jQuery(function($){
@@ -1113,7 +1151,7 @@ class AgweeContracts_admin{
 				});
 			}	
 			function remove_user_field(uid,fid){
-				if(!confirm("האם למחוק את השדה?")){
+				if(!confirm("<?php echo __("Remove the field?", 'agwee-contracts-text'); ?>")){
 					return;
 				}
 				jQuery(function($){
@@ -1121,7 +1159,7 @@ class AgweeContracts_admin{
 				});
 			}	
 			function remove_general_field(fid){
-				if(!confirm("האם למחוק את השדה?")){
+				if(!confirm("<?php echo __("Remove the field?", 'agwee-contracts-text'); ?>")){
 					return;
 				}
 				jQuery(function($){
@@ -1186,13 +1224,13 @@ class AgweeContracts_admin{
 		$contract_data = agweeContracts_handler::get_contract_data($contract_id,false);
 		$contract_content = $contract_data['content'];
 		?>
-		<h2>תוכן החוזה</h2>
+		<h2><?php echo __("The contract content", 'agwee-contracts-text'); ?></h2>
 		<table cellpadding='10'>
 			<tr>
 				<td style='vertical-align:top;'>
-					<div style="background:yellow; float:right; color:black; width:210px;" id="contract_fields_wrap">
-						<b style="display:block;padding:5px;">שדות להוספה</b>
-						<div style="background:white; padding:5px; color:black;height:340px; overflow-y:auto;" id="contract_fields">
+					<div style="float:right; color:black; width:210px; font-size:17px;" id="contract_fields_wrap">
+						<b style="display:block;padding:5px;"><?php echo __("The fields to add", 'agwee-contracts-text'); ?></b>
+						<div style="background:#f3f5f6;margin-top:20px; padding:5px; color:black;height:340px; overflow-y:auto;" id="contract_fields">
 							
 							<b style="display:block;padding:0px 10px;"><?php echo $form_fields['general']['title']; ?></b>
 							<?php foreach($form_fields['general']['fields'] as $field_group): ?>
@@ -1205,25 +1243,24 @@ class AgweeContracts_admin{
 								<?php endforeach; ?>	
 								<a class='contract_field_a' style="display:block;padding:3px 10px;" href="javascript://" onclick="contract_field_select(this)" rel="{{חתימה(<?php echo $user_group['role_name']; ?>)}}">חתימה</a>
 							<?php endforeach; ?>
-							<a class='contract_field_a' style="display:block;padding:3px 10px;" href="javascript://" onclick="contract_field_select(this)" rel="{{נספח}}">הוסף נספח לחוזה</a>
+							<a class='contract_field_a' style="display:block;padding:3px 10px;" href="javascript://" onclick="contract_field_select(this)" rel="{{<?php echo __("נספח", 'agwee-contracts-text'); ?>}}"><?php echo __("הוסף נספח לחוזה", 'agwee-contracts-text'); ?></a>
 						</div>
 						<style type='text/css'>
 							.contract_field_a:hover{background:#ddd;}
 							.contract_field_a.selected{background:#9d9;}
 						</style>
-						<button type="button" onclick="add_field_to_contract();" style="margin:10px; padding:10px;">לחץ כאן להוספת הערך הנבחר</button>
+						<button type="button" onclick="add_field_to_contract();" style="margin:10px; padding:10px;"><?php echo __("Click here to add the selected field to the content", 'agwee-contracts-text'); ?></button>
 					</div>
 				</td>
 				<td>
 					<form action="" method="POST">
 						<input type="hidden" name="edit_contract_content" value="<?php echo $contract_data['id']; ?>" />
 						<div style="float:right;">
-							<b>to do: create reach text area here</b>
+							<h2><?php echo __("The contract content here!", 'agwee-contracts-text'); ?>:</h2>
 							<br/>
 							<?php wp_editor($contract_content,$editor_id,$settings); ?>
 							<?php
-								$save_button_style = "font-size:30px;font-weight:bold;display:block; height:87px;width:200px;border-radius:50px;margin:auto;margin-top:20px;background:#eae4e4;color:#8e7d7d;cursor:pointer;";
-								echo "<input type='submit' value='שמירה' class='submit_style' style = '".$save_button_style."'>";
+								echo "<input type='submit' value='".__("Save", 'agwee-contracts-text')."' class='submit_style' style = 'font-size: 42px;width:100%;padding: 8px;font-weight: bold;color: #408e40;margin:10px 0px;box-sizing: border-box;'>";
 							?>
 						</div>
 					</form>

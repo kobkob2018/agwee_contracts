@@ -49,10 +49,10 @@ class AgweeContracts_frontend{
 						unset($_SESSION[$contract_apply_user_str]);
 						ob_start();
 						?>
-						<b style="color:green;">תהליך הפקת החוזה הסתיים וקובץ החוזה נשלח לכתובות המייל של המשתתפים.
+						<b style="color:green;"><?php echo __("תהליך הפקת החוזה הסתיים וקובץ החוזה נשלח לכתובות המייל של המשתתפים.", 'agwee-contracts-text'); ?>
 							<br/>
 							<br/>
-							<span style="color:red;">יש להכנס לתיבת האימייל ולאשר את אמינות החוזה דרך הלינק שנשלח אליכם</span>
+							<span style="color:red;"><?php echo __("יש להכנס לתיבת האימייל ולאשר את אמינות החוזה דרך הלינק שנשלח אליכם", 'agwee-contracts-text'); ?></span>
 						</b>
 						<?php
 						agweeContracts_handler::get_ob_clean();
@@ -62,7 +62,7 @@ class AgweeContracts_frontend{
 				elseif(!isset($_GET['enter'])){
 					ob_start();
 					?>
-					<b style="color:red;">אין לך הרשאות לצפות בהסכם זה</b>
+					<b style="color:red;"><?php echo __("אין לך הרשאות לצפות בהסכם זה", 'agwee-contracts-text'); ?></b>
 					<?php
 					agweeContracts_handler::get_ob_clean();
 					return;	
@@ -227,7 +227,7 @@ class AgweeContracts_frontend{
 		if($contract_apply_id && !$contract_apply_user){
 			ob_start();
 			?>
-			<b style="color:red;">אין לך הרשאות לצפות בהסכם זה</b>
+			<b style="color:red;"><?php echo __("אין לך הרשאות לצפות בהסכם זה", 'agwee-contracts-text'); ?></b>
 			<?php
 			agweeContracts_handler::get_ob_clean();
 			return;
@@ -248,12 +248,12 @@ class AgweeContracts_frontend{
 		<?php if($contract_apply_id): ?>
 			<div style="float:left;">
 				<?php if($contract_apply_user != "-1"): ?>
-					שלום <?php echo $users_info[$contract_apply_user]['firstname']." ".$users_info[$contract_apply_user]['lastname']; ?><br/>
+					<?php echo __("שלום", 'agwee-contracts-text'); ?> <?php echo $users_info[$contract_apply_user]['firstname']." ".$users_info[$contract_apply_user]['lastname']; ?><br/>
 				<?php endif; ?>
-				<a href="<?php echo $general_page_url; ?>&contract_apply=<?php echo $contract_apply_id; ?>&exit=1" style="color:red;font-size:18px;"><b>יציאה</b></a>
+				<a href="<?php echo $general_page_url; ?>&contract_apply=<?php echo $contract_apply_id; ?>&exit=1" style="color:red;font-size:18px;"><b><?php echo __("יציאה", 'agwee-contracts-text'); ?></b></a>
 			</div>
 		<?php endif; ?>
-		<h2>מימוש חוזה: <?php echo $contract_data['title']; ?></h2>
+		<h2><?php echo __("מימוש חוזה", 'agwee-contracts-text'); ?>: <?php echo $contract_data['title']; ?></h2>
 		<?php if(isset($_GET['view']) && $contract_messeges): ?>
 			<?php foreach($contract_messeges as $msg): ?>
 				<div style="color:<?php echo $msg['color']; ?>;font-size:20px;">
@@ -288,21 +288,21 @@ class AgweeContracts_frontend{
 					
 					<?php if($enable_export): ?>
 						<div style="border:1px solid green; padding:10px; background:#b9ffb9;font-size:20px;margin-top:10px;">
-							<b>פרטי החוזה הושלמו בהצלחה</b><br/>
-							<a href="<?php echo $general_page_url; ?>&contract_apply=<?php echo $contract_apply_id; ?>&export=1">לחץ כאן להפקת הקובץ</a>
+							<b><?php echo __("פרטי החוזה הושלמו בהצלחה", 'agwee-contracts-text'); ?></b><br/>
+							<a href="<?php echo $general_page_url; ?>&contract_apply=<?php echo $contract_apply_id; ?>&export=1"><?php echo __("לחץ כאן להפקת הקובץ", 'agwee-contracts-text'); ?></a>
 						</div>
 					<?php elseif($enable_sign): ?>
 						<div style="border:1px solid green; padding:10px; background:#b9ffb9;margin-top:10px;">
-							<b style="color:green;font-size:20px;">פרטי החוזה הושלמו בהצלחה</b><br/>				
-							<b style="color:red;">לפני הפקת קובץ החוזה, נשאר רק להוסיף את <a href="#signatures_update">חתימות המשתתפים</a>: </b>
+							<b style="color:green;font-size:20px;"><?php echo __("פרטי החוזה הושלמו בהצלחה", 'agwee-contracts-text'); ?></b><br/>				
+							<b style="color:red;"><?php echo __("לפני הפקת קובץ החוזה, נשאר רק להוסיף את", 'agwee-contracts-text'); ?> <a href="#signatures_update"><?php echo __("חתימות המשתתפים", 'agwee-contracts-text'); ?></a>: </b>
 							<br/>
 							<?php echo $missing_signatures_str; ?>
 						</div>					
 					<?php endif; ?>	
 						
-					<h3>פרטי החוזה</h3>
+					<h3><?php echo __("פרטי החוזה", 'agwee-contracts-text'); ?></h3>
 				<?php else: ?>
-					<h3>אנא מלאו את הפרטים הבאים:</h3>
+					<h3><?php echo __("אנא מלאו את הפרטים הבאים", 'agwee-contracts-text'); ?>:</h3>
 				<?php endif; ?>
 			</div>
 
@@ -315,7 +315,7 @@ class AgweeContracts_frontend{
 				<?php endif; ?>
 				<div  style=" padding:0px 30px;">
 					<?php foreach($form_fields['users_fields']['users'] as $user_arr): ?>
-					<h4>פרטי <?php echo $user_arr['role_name']; ?>:</h4>
+					<h4><?php echo sprintf( __("פרטי %s", 'agwee-contracts-text'),$user_arr['role_name']); ?>:</h4>
 					<div class="row-fluid">
 						<?php $i=0; foreach($user_arr['fields'] as $field_arr): $i++; ?>
 							<div class="span4">
@@ -329,7 +329,7 @@ class AgweeContracts_frontend{
 						<?php endforeach; ?>
 					</div>
 					<?php endforeach; ?>
-					<h4>פרטים כלליים:</h4>
+					<h4><?php echo __("פרטים כלליים", 'agwee-contracts-text'); ?>:</h4>
 					<div class="row-fluid">
 						<?php $i=0; foreach($form_fields['general']['fields'] as $field_arr): $i++; ?>
 							<div class="span4">
@@ -343,22 +343,22 @@ class AgweeContracts_frontend{
 					</div>
 					<hr/>
 					<div id="open_signatures_msg" rel="start">
-						<b style="color:red;">להוספת חתימות יש למלא תחילה את כל הפרטים החסרים: </b>
+						<b style="color:red;"><?php echo __("להוספת חתימות יש למלא תחילה את כל הפרטים החסרים", 'agwee-contracts-text'); ?>: </b>
 						<span id="missing_fields"></span><br/>
-						<b style="color:green;">ניתן להשאיר חלק מהפרטים ריקים על מנת לאפשר למשתתפים אחרים בחוזה להשלימם.</b>
+						<b style="color:green;"><?php echo __("ניתן להשאיר חלק מהפרטים ריקים על מנת לאפשר למשתתפים אחרים בחוזה להשלימם.", 'agwee-contracts-text'); ?></b>
 					</div>
 				
 				
 					<?php if($enable_sign && isset($_GET['view'])): ?>
-						<h4>חתימות:</h4>
+						<h4><?php echo __("חתימות", 'agwee-contracts-text'); ?>:</h4>
 						<div class="row-fluid">
 						<?php $i=0; foreach($users_info as $user_info): $i++; ?>
 							<div class="span4">
 								<b><?php echo $user_info['firstname']; ?> <?php echo $user_info['lastname'];?><br/></b>
 								<?php if($user_info['signature_exist']): ?>
-									<b style="color:green;">יש</b>
+									<b style="color:green;"><?php echo __("יש", 'agwee-contracts-text'); ?></b>
 								<?php else: ?>
-									<b style="color:red;">אין</b>
+									<b style="color:red;"><?php echo __("אין", 'agwee-contracts-text'); ?></b>
 								<?php endif; ?>
 							</div>				
 							<?php if($i==3): $i=0; ?>
@@ -371,21 +371,21 @@ class AgweeContracts_frontend{
 					<?php if(isset($_GET['view'])): ?>
 						<?php if($contract_apply_id): ?>
 							<div style="float:left;padding-top: 23px;">
-								<a style="color:blue; font-size:20px;font-weight:bold; text-decoration:underline;" href="<?php echo $general_page_url; ?>&contract_apply=<?php echo $contract_apply_id; ?>">עדכון פרטים</a>
+								<a style="color:blue; font-size:20px;font-weight:bold; text-decoration:underline;" href="<?php echo $general_page_url; ?>&contract_apply=<?php echo $contract_apply_id; ?>"><?php echo __("עדכון פרטים", 'agwee-contracts-text'); ?></a>
 								</br>
-								<b style="color:red;">לאחר עדכון הפרטים יש לחדש את החתימות</b>
+								<b style="color:red;"><?php echo __("לאחר עדכון הפרטים יש לחדש את החתימות", 'agwee-contracts-text'); ?></b>
 							</div>
 							<div style="clear:both;"></div>
 						<?php endif; ?>
 						<?php if($enable_export): ?>
 							<div style="border:1px solid green; padding:10px; background:#b9ffb9;font-size:20px;margin-top:10px;">
-								<b>פרטי החוזה הושלמו בהצלחה</b><br/>
-								<a href="<?php echo $general_page_url; ?>&contract_apply=<?php echo $contract_apply_id; ?>&export=1">לחץ כאן להפקת הקובץ</a>
+								<b><?php echo __("פרטי החוזה הושלמו בהצלחה", 'agwee-contracts-text'); ?></b><br/>
+								<a href="<?php echo $general_page_url; ?>&contract_apply=<?php echo $contract_apply_id; ?>&export=1"><?php echo __("לחץ כאן להפקת הקובץ", 'agwee-contracts-text'); ?></a>
 							</div>
 						<?php elseif($enable_sign): ?>
 							<div id="signatures_update" style="border:1px solid green; padding:10px; background:#b9ffb9;margin-top:10px;">
-								<b style="color:green;font-size:20px;">פרטי החוזה הושלמו בהצלחה</b><br/>
-								<b style="color:red;">לפני הפקת קובץ החוזה, נשאר רק להוסיף את חתימות המשתתפים: </b>
+								<b style="color:green;font-size:20px;"><?php echo __("פרטי החוזה הושלמו בהצלחה", 'agwee-contracts-text'); ?></b><br/>
+								<b style="color:red;"><?php echo __("לפני הפקת קובץ החוזה, נשאר רק להוסיף את חתימות המשתתפים", 'agwee-contracts-text'); ?>: </b>
 								<br/>
 								<?php echo $missing_signatures_str; ?>
 							</div>					
@@ -394,31 +394,31 @@ class AgweeContracts_frontend{
 				</div>
 				<div id="contract_signatures">
 					<div  style=" padding:0px 30px;">
-						<h4>עדכון חתימות:</h4>
-						<b style="color:green;">באפשרותך לעדכן חתימות כעת או להשאירן ריקות על מנת לאפשר למשתתפים אחרים לחתום</b>
+						<h4><?php echo __("עדכון חתימות", 'agwee-contracts-text'); ?>:</h4>
+						<b style="color:green;"><?php echo __("באפשרותך לעדכן חתימות כעת או להשאירן ריקות על מנת לאפשר למשתתפים אחרים לחתום", 'agwee-contracts-text'); ?></b>
 						<hr/>
 					</div>
 					<?php foreach($form_fields['users_fields']['users'] as $user_arr): ?>
 						<div>
 							<div  style=" padding:0px 30px;">
-								<input type="checkbox" style="zoom:2;margin-top:-1px; margin-left:4px;" name="add_sign[<?php echo $user_arr['identifier']; ?>]" class="signature_door" onchange="open_signature_wrap(this,<?php echo $user_arr['identifier']; ?>);" rel="open" data-user="<?php echo $user_arr['identifier']; ?>" /><span style="font-size:18px; line-height:18px;" >הוסף חתימה של <b class="username_holder" data-user="<?php echo $user_arr['identifier']; ?>"><?php echo $user_arr['role_name']; ?></b></span>
+								<input type="checkbox" style="zoom:2;margin-top:-1px; margin-left:4px;" name="add_sign[<?php echo $user_arr['identifier']; ?>]" class="signature_door" onchange="open_signature_wrap(this,<?php echo $user_arr['identifier']; ?>);" rel="open" data-user="<?php echo $user_arr['identifier']; ?>" /><span style="font-size:18px; line-height:18px;" ><?php echo __("הוסף חתימה של", 'agwee-contracts-text'); ?> <b class="username_holder" data-user="<?php echo $user_arr['identifier']; ?>"><?php echo $user_arr['role_name']; ?></b></span>
 								<?php if($users_info[$user_arr['identifier']]['signature_exist']): ?>
 									<?php if(isset($_GET['view'])): ?>
-										<b style="color:green;"> (קיימת חתימה)</b>
+										<b style="color:green;"> (<?php echo __("קיימת חתימה", 'agwee-contracts-text'); ?>)</b>
 									<?php else: ?>
-										<b style="color:red;"> (החתימה הקיימת תמחק לאחר העדכון)</b>
+										<b style="color:red;"> (<?php echo __("החתימה הקיימת תמחק לאחר העדכון", 'agwee-contracts-text'); ?>)</b>
 									<?php endif; ?>
 								<?php endif; ?>
 							</div>
 							<div class="contract_signature_wrap" id="contract_signature_wrap_<?php echo $user_arr['identifier']; ?>" style="overrflow:hidden;"> 
-								<span class="signature_title">חתימה של <b class="username_holder" data-user="<?php echo $user_arr['identifier']; ?>"><?php echo $user_arr['role_name']; ?></b></span>
+								<span class="signature_title"><?php echo __("חתימה של", 'agwee-contracts-text'); ?> <b class="username_holder" data-user="<?php echo $user_arr['identifier']; ?>"><?php echo $user_arr['role_name']; ?></b></span>
 
 								<br/>
 								<div class="signature_wrap">
 									<div class="signature_div" id="signature_<?php echo $user_arr['identifier']; ?>" style="width:100%;background:#e0d5d5;">
 										&nbsp;
 									</div>
-									<button style="width:100%;" class="signature_clean" onclick="clear_signature('signature_<?php echo $user_arr['identifier']; ?>')" type="button">נקה</button>
+									<button style="width:100%;" class="signature_clean" onclick="clear_signature('signature_<?php echo $user_arr['identifier']; ?>')" type="button"><?php echo __("נקה", 'agwee-contracts-text'); ?></button>
 									<input class="signature_input" id="signature_<?php echo $user_arr['identifier']; ?>_input" name="sign[<?php echo $user_arr['identifier']; ?>]" rel="signature_<?php echo $user_arr['identifier']; ?>" type="hidden" />
 								</div>	
 							</div>
@@ -430,11 +430,11 @@ class AgweeContracts_frontend{
 				<div  style=" padding:0px 30px;">
 					<div style="float:left;padding-top: 23px;">
 						<?php if(!isset($_GET['view']) && $contract_apply_id): ?>
-							<a style="color:#ff5353; font-size:24px;font-weight:bold;" href="<?php echo $general_page_url; ?>&contract_apply=<?php echo $contract_apply_id; ?>&view=1">ביטול</a>
+							<a style="color:#ff5353; font-size:24px;font-weight:bold;" href="<?php echo $general_page_url; ?>&contract_apply=<?php echo $contract_apply_id; ?>&view=1"><?php echo __("ביטול", 'agwee-contracts-text'); ?></a>
 						<?php endif; ?>
 					</div>
 					<?php if(!isset($_GET['view']) || $enable_sign): ?>
-						<input style="display: block;width: 100%;font-size: 18px;" type="submit" value="שלח" /></p>		
+						<input style="display: block;width: 100%;font-size: 18px;" type="submit" value="<?php echo __("שלח", 'agwee-contracts-text'); ?>" /></p>		
 					<?php endif; ?>
 					<div style="clear:both;"></div>
 				</div>
@@ -489,12 +489,12 @@ class AgweeContracts_frontend{
 			}
 			if($field_arr['type'] != "file"){ 
 			?>
-			<input id="input_<?php echo $input_name; ?>" class="sign_<?php echo $field_arr['type']; ?> <?php echo $classname; ?>" data-msg-required="יש למלא <?php echo $field_arr['title']; ?>" data-msg-email="כתובת המייל אינה תקינה" type="hidden" name="contract[<?php echo $input_name; ?>]" value="<?php echo $field_value; ?>" <?php echo $readonly; ?> data-title="<?php echo $field_arr['title_str']; ?>"/>
+			<input id="input_<?php echo $input_name; ?>" class="sign_<?php echo $field_arr['type']; ?> <?php echo $classname; ?>" data-msg-required="<?php echo __("יש למלא", 'agwee-contracts-text'); ?> <?php echo $field_arr['title']; ?>" data-msg-email="<?php echo __("כתובת המייל אינה תקינה", 'agwee-contracts-text'); ?>" type="hidden" name="contract[<?php echo $input_name; ?>]" value="<?php echo $field_value; ?>" <?php echo $readonly; ?> data-title="<?php echo $field_arr['title_str']; ?>"/>
 			<?php
 			}
 			else{
 			?>
-			<input id="input_<?php echo $input_name; ?>" class="sign_<?php echo $field_arr['type']; ?> <?php echo $classname; ?>" data-msg-required="יש למלא <?php echo $field_arr['title']; ?>" type="hidden" name="contract_files[<?php echo $input_name; ?>]" value="<?php echo $field_value; ?>" <?php echo $readonly; ?> data-title="<?php echo $field_arr['title_str']; ?>"/>	
+			<input id="input_<?php echo $input_name; ?>" class="sign_<?php echo $field_arr['type']; ?> <?php echo $classname; ?>" data-msg-required="<?php echo __("יש למלא", 'agwee-contracts-text'); ?> <?php echo $field_arr['title']; ?>" type="hidden" name="contract_files[<?php echo $input_name; ?>]" value="<?php echo $field_value; ?>" <?php echo $readonly; ?> data-title="<?php echo $field_arr['title_str']; ?>"/>	
 			<?php
 			}
 		}
@@ -502,7 +502,7 @@ class AgweeContracts_frontend{
 					
 			if($field_arr['type'] == "text" || $field_arr['type'] == "email" ||  $field_arr['type'] == "file"){
 				?>
-					<input style="max-width:95%;margin-bottom:0px;" id="input_<?php echo $input_name; ?>" class="sign_<?php echo $field_arr['type']; ?> <?php echo $classname; ?>" data-msg-required="יש למלא <?php echo $field_arr['title']; ?>" data-msg-email="כתובת המייל אינה תקינה" type="<?php echo $field_arr['type']; ?>" name="contract[<?php echo $input_name; ?>]" value="<?php echo $field_value; ?>" <?php echo $readonly; ?> data-title="<?php echo $field_arr['title_str']; ?>"/>
+					<input style="max-width:95%;margin-bottom:0px;" id="input_<?php echo $input_name; ?>" class="sign_<?php echo $field_arr['type']; ?> <?php echo $classname; ?>" data-msg-required="<?php echo __("יש למלא", 'agwee-contracts-text'); ?> <?php echo $field_arr['title']; ?>" data-msg-email="<?php echo __("כתובת המייל אינה תקינה", 'agwee-contracts-text'); ?>" type="<?php echo $field_arr['type']; ?>" name="contract[<?php echo $input_name; ?>]" value="<?php echo $field_value; ?>" <?php echo $readonly; ?> data-title="<?php echo $field_arr['title_str']; ?>"/>
 				<?php
 			}
 			if($field_arr['type'] == "textarea"){
@@ -521,7 +521,7 @@ class AgweeContracts_frontend{
 		}
 		if($edit_by){
 			if($field_arr['input']['edit_by'] != "" && $field_arr['input']['edit_by'] != '-1'){
-				echo "<div style=''> עודכן על ידי ".$users_info[$edit_by]['firstname']." ".$users_info[$edit_by]['lastname']."</div>"; 
+				echo "<div style=''> ".__("עודכן על ידי", 'agwee-contracts-text')." ".$users_info[$edit_by]['firstname']." ".$users_info[$edit_by]['lastname']."</div>"; 
 			}
 		}
 	}	
@@ -638,7 +638,7 @@ class AgweeContracts_frontend{
 					$ext_str = $file_name_arr[(count($file_name_arr) - 1)];
 					$ext_str = strtolower($ext_str);
 					if($ext_str!="png" && $ext_str!="jpg" && $ext_str!="gif"){
-						$session_messeges[] = array("color"=>"red","msg"=>"שגיאה בהעלאת תמונה");
+						$session_messeges[] = array("color"=>"red","msg"=>"".__("שגיאה בהעלאת תמונה", 'agwee-contracts-text')."");
 						$input_value = $old_input_value;
 					}
 					else{
@@ -690,7 +690,7 @@ class AgweeContracts_frontend{
 						$ext_str = $file_name_arr[(count($file_name_arr) - 1)];
 						$ext_str = strtolower($ext_str);
 						if($ext_str!="png" && $ext_str!="jpg" && $ext_str!="gif"){
-							$session_messeges[] = array("color"=>"red","msg"=>"שגיאה בהעלאת תמונה");
+							$session_messeges[] = array("color"=>"red","msg"=>"".__("שגיאה בהעלאת תמונה", 'agwee-contracts-text')."");
 							$input_value = $old_input_value;
 						}
 						else{
@@ -900,19 +900,19 @@ class AgweeContracts_frontend{
 			foreach($users_info as $user_info){
 				$username = $user_info['firstname']." ".$user_info['lastname'];
 				$content = "
-				שלום ".$username.",<br>
+				".__("שלום", 'agwee-contracts-text')." ".$username.",<br>
 				<br>
-				עודכן הסכם עבודה עבור ".$usernames." <br>
+				".__("עודכן הסכם עבודה עבור", 'agwee-contracts-text')." ".$usernames." <br>
 				
 				<br/><br/>
-				<a href='{{approve_str}}' class='text_link' target='_blank'>לחץ כאן לצפייה ועדכון פרטים</a>
+				<a href='{{approve_str}}' class='text_link' target='_blank'>".__("לחץ כאן לצפייה ועדכון פרטים", 'agwee-contracts-text')."</a>
 				<br>
 				<br>
-				בברכה,<br>
+				".__("בברכה", 'agwee-contracts-text').",<br>
 				".stripslashes($user_details['name'])."<br>
 					".$_SERVER['HTTP_HOST']."
 				";
-				$header_send_to_Client= "הסכם עבודה בשיתופך עודכן עבור ".$usernames;
+				$header_send_to_Client= "".__("הסכם עבודה בשיתופך עודכן עבור", 'agwee-contracts-text')." ".$usernames;
 				$content_send_to_Client = "
 					<html dir=rtl>
 				
@@ -942,15 +942,15 @@ class AgweeContracts_frontend{
 			}
 				
 			$content = "
-			שלום,<br>
+			".__("שלום", 'agwee-contracts-text').",<br>
 			<br>
-			עודכן הסכם עבודה עבור: ".$usernames."
-			בברכה,<br>
+			".__("עודכן הסכם עבודה עבור", 'agwee-contracts-text').": ".$usernames."
+			".__("בברכה", 'agwee-contracts-text').",<br>
 			".stripslashes($user_details['name'])."<br>
 				".$_SERVER['HTTP_HOST']."
 			";
 			$content = $content;
-			$header_send_to_Client= "הסכם עבודה עבור ".$usernames;
+			$header_send_to_Client= "".__("הסכם עבודה עבור", 'agwee-contracts-text')." ".$usernames;
 			$content_send_to_Client = "
 				<html dir=rtl>
 			
@@ -975,7 +975,7 @@ class AgweeContracts_frontend{
 		
 		
 		
-		$session_messeges[] = array("color"=>"green","msg"=>"פרטי החוזה עודכנו בהצלחה");
+		$session_messeges[] = array("color"=>"green","msg"=>"".__("פרטי החוזה עודכנו בהצלחה", 'agwee-contracts-text')."");
 		$_SESSION['contract_messeges'] = $session_messeges;	
 		?>
 		
@@ -993,10 +993,10 @@ class AgweeContracts_frontend{
 			$landing_id = $post_id;
 		}
 		if(!$enable_sign){
-			$session_messeges[] = array("color"=>"red","msg"=>"לא ניתן להשלים את יצירת החוזה. חסרים פרטים");
+			$session_messeges[] = array("color"=>"red","msg"=>"".__("לא ניתן להשלים את יצירת החוזה. חסרים פרטים", 'agwee-contracts-text')."");
 		}
 		elseif(!$enable_sign){
-			$session_messeges[] = array("color"=>"red","msg"=>"לא ניתן להשלים את יצירת החוזה. חסרות חתימות");
+			$session_messeges[] = array("color"=>"red","msg"=>"".__("לא ניתן להשלים את יצירת החוזה. חסרות חתימות", 'agwee-contracts-text')."");
 		}
 		else{
 			$file_name = "contract_".$contract_id."_".$contract_apply_id.".pdf";
@@ -1041,7 +1041,7 @@ class AgweeContracts_frontend{
 					$contract_content = str_replace("{{".$field_arr['title']."(".$user_arr['role_name'].")}}",$input_value,$contract_content);
 				}
 				$user_signature = "<img src='".$users_info[$user_arr['identifier']]['signature']."' style='width:250px;border-bottom:1px solid;' />";
-				$contract_content = str_replace("{{חתימה(".$user_arr['role_name'].")}}",$user_signature,$contract_content);
+				$contract_content = str_replace("{{".__("חתימה", 'agwee-contracts-text')."(".$user_arr['role_name'].")}}",$user_signature,$contract_content);
 			}
 			
 			$html = "
@@ -1058,7 +1058,7 @@ class AgweeContracts_frontend{
 			
 			
 			
-			$html_arr = explode("{{נספח}}",$html);
+			$html_arr = explode("{{".__("נספח", 'agwee-contracts-text')."}}",$html);
 			$html = $html_arr[0];		
 			
 			$this->callbeck_class->include_required_file('vendor/autoload.php');
@@ -1107,20 +1107,20 @@ class AgweeContracts_frontend{
 			foreach($users_info as $user_info){
 				$username = $user_info['firstname']." ".$user_info['lastname'];
 				$content = "
-				שלום ".$user_info['firstname']." ".$user_info['lastname'].",<br>
+				".__("שלום", 'agwee-contracts-text')." ".$user_info['firstname']." ".$user_info['lastname'].",<br>
 				<br>
-				קובץ הסכם העבודה נוצר בהצלחה <br>
+				".__("קובץ הסכם העבודה נוצר בהצלחה", 'agwee-contracts-text')." <br>
 				
-				<br/><br/><span style='color:red;'>* בלחיצה על הלינק הבא אני מאשר שקראתי את החוזה ואני מסכים לאמת את אמינותו</span><br/>
-				<a href='{{approve_str}}' class='text_link' target='_blank'>לחץ כאן על מנת לאשר את אמינות החוזה</a>
+				<br/><br/><span style='color:red;'>* ".__("בלחיצה על הלינק הבא אני מאשר שקראתי את החוזה ואני מסכים לאמת את אמינותו", 'agwee-contracts-text')."</span><br/>
+				<a href='{{approve_str}}' class='text_link' target='_blank'>".__("לחץ כאן על מנת לאשר את אמינות החוזה", 'agwee-contracts-text')."</a>
 				<br>
 				<br>
-				בברכה,<br>
+				".__("בברכה", 'agwee-contracts-text').",<br>
 				".stripslashes($user_details['name'])."<br>
 					".$_SERVER['HTTP_HOST']."
 				";
 				$content = $content;
-				$header_send_to_Client= "הסכם עבודה עבור {{username}}";
+				$header_send_to_Client= "".__("הסכם עבודה עבור", 'agwee-contracts-text')." {{username}}";
 				$content_send_to_Client = "
 					<html dir=rtl>
 				
@@ -1150,16 +1150,16 @@ class AgweeContracts_frontend{
 			}
 				
 			$content = "
-			שלום,<br>
+			".__("שלום", 'agwee-contracts-text').",<br>
 			<br>
-			קובץ הסכם העבודה נוצר בהצלחה <br>
-			עבור : ".$usernames."
-			בברכה,<br>
+			".__("קובץ הסכם העבודה נוצר בהצלחה", 'agwee-contracts-text')." <br>
+			".__("עבור", 'agwee-contracts-text')." : ".$usernames."
+			".__("בברכה", 'agwee-contracts-text').",<br>
 			".stripslashes($user_details['name'])."<br>
 				".$_SERVER['HTTP_HOST']."
 			";
 			$content = $content;
-			$header_send_to_Client= "הסכם עבודה עבור ".$usernames;
+			$header_send_to_Client= "".__("הסכם עבודה עבור", 'agwee-contracts-text')." ".$usernames;
 			$content_send_to_Client = "
 				<html dir=rtl>
 			
@@ -1181,7 +1181,7 @@ class AgweeContracts_frontend{
 			agweeContracts_handler::send_emails($this->callbeck_class, $header_send_to_Client_final, $content_send_to_Client_final, $ClientMail, $file_path);
 				
 
-			$session_messeges[] = array("green"=>"red","msg"=>"קובץ החוזה הופק בהצלחה ונשלח אל כתובות המייל של המשתתפים בחוזה");
+			$session_messeges[] = array("green"=>"red","msg"=>"".__("קובץ החוזה הופק בהצלחה ונשלח אל כתובות המייל של המשתתפים בחוזה", 'agwee-contracts-text')."");
 			$last_alert_sql = "UPDATE ag_contract_apply SET last_alert = NOW() WHERE id = $contract_apply_id";
 			$last_alert_res = $this->wpcon->get_results($last_alert_sql,ARRAY_A);
 		}
@@ -1279,37 +1279,37 @@ class AgweeContracts_frontend{
 		?>
 			<div style="float:left;">
 				<?php if($contract_apply_user != "-1"): ?>
-					שלום <?php echo $users_info[$contract_apply_user]['firstname']." ".$users_info[$contract_apply_user]['lastname']; ?><br/>
+					<?php echo __("שלום", 'agwee-contracts-text'); ?> <?php echo $users_info[$contract_apply_user]['firstname']." ".$users_info[$contract_apply_user]['lastname']; ?><br/>
 				<?php endif; ?>
-				<a href="<?php echo $general_page_url; ?>&contract_apply=<?php echo $contract_apply_id; ?>&exit=1" style="color:red;font-size:18px;"><b>יציאה</b></a>
+				<a href="<?php echo $general_page_url; ?>&contract_apply=<?php echo $contract_apply_id; ?>&exit=1" style="color:red;font-size:18px;"><b><?php echo __("יציאה", 'agwee-contracts-text'); ?></b></a>
 			</div>	
-		<h2>אישור סופי לחוזה: <?php echo $contract_data['title']; ?></h2>
+		<h2><?php echo __("אישור סופי לחוזה", 'agwee-contracts-text'); ?>: <?php echo $contract_data['title']; ?></h2>
 		<p style="font-size:18px;">
-		שנחתם בין המשתתפים: 
+		<?php echo __("שנחתם בין המשתתפים", 'agwee-contracts-text'); ?>: 
 		<?php foreach($users_info as $user_info): ?>
 			<?php echo $user_info['firstname']." ".$user_info['lastname'].","; ?>
 		<?php endforeach; ?>
 		</p>
 		<div  style="display: block;margin-bottom:100px; font-size:18px; background: #ffffae;padding: 15px;border:1px solid gray;">
 			<h3>
-				אנא בחר האם לאשר את אמינות החוזה:
+				<?php echo __("אנא בחר האם לאשר את אמינות החוזה", 'agwee-contracts-text'); ?>:
 			</h3>
 			<form id="contract_form" action="" method="POST" onsubmit="return check_approve_note();">
 				<div>
 					<input  type="radio" id="approve_radio_1" class="approve_radio" name="final_approve" value="1" style="zoom:2;margin-top:-1px; margin-left:4px;" checked />
 					<span>
-						אני מאשר את החוזה
+						<?php echo __("אני מאשר את החוזה", 'agwee-contracts-text'); ?>
 					</span>
 					<br/>
 				</div>
 				<div style="margin-top:15px;">
 					<input type="radio" id="approve_radio_0" class="approve_radio" name="final_approve" style="zoom:2;margin-top:-1px; margin-left:4px;" value="0" />
 					<span>
-					אינני מאשר את החוזה
+					<?php echo __("אינני מאשר את החוזה", 'agwee-contracts-text'); ?>
 					</span>
 				</div>
 				<div style="display:none;margin-top:15px; margin-right:30px;" id="approve_note_wrap">
-					<b>מדוע אינני מאשר את החוזה?</b><br/>
+					<b><?php echo __("מדוע אינני מאשר את החוזה?", 'agwee-contracts-text'); ?></b><br/>
 					<textarea name="approve_note" id="approve_note"></textarea>
 				</div>
 				<input style="font-size:30px;font-weight:bold;display:block; height:87px;width:200px;border-radius:20px;float:right;margin-top:20px;background:#eae4e4;color:#8e7d7d;cursor:pointer;" type="submit" value="שלח" /></p>
@@ -1336,7 +1336,7 @@ class AgweeContracts_frontend{
 					}
 					else {
 						if($("#approve_note").val() == ""){
-							alert("אנא רשום מדוע אינך מאשר את אמינות החוזה");
+							alert("<?php echo __("אנא רשום מדוע אינך מאשר את אמינות החוזה", 'agwee-contracts-text'); ?>");
 							ret = false;
 						}
 					}
@@ -1410,24 +1410,24 @@ class AgweeContracts_frontend{
 				$user_details = agweeContracts_handler::get_user_details();
 				$user_email = $user_details['email'];
 				if($_REQUEST['final_approve'] == '1'){
-					$header_send_to_Client= "אישור אמינות של הסכם עבודה";
-					$approve_state_str = "<b style='color:green'>". "אושר בהצלחה". "</b>";
+					$header_send_to_Client= "".__("אישור אמינות של הסכם עבודה", 'agwee-contracts-text')."";
+					$approve_state_str = "<b style='color:green'>". "".__("אושר בהצלחה", 'agwee-contracts-text')."". "</b>";
 					$approve_note = "";
 				}
 				else{
-					$header_send_to_Client= "דחיית אמינות של הסכם עבודה";
-					$approve_state_str = "<b style='color:red'>". "נדחה". "</b>";
-					$approve_note = "<b>סיבת הדחייה: </br>".$_REQUEST['approve_note']."</b>";
+					$header_send_to_Client= "".__("דחיית אמינות של הסכם עבודה", 'agwee-contracts-text')."";
+					$approve_state_str = "<b style='color:red'>". "".__("נדחה", 'agwee-contracts-text')."". "</b>";
+					$approve_note = "<b>".__("סיבת הדחייה", 'agwee-contracts-text').": </br>".$_REQUEST['approve_note']."</b>";
 				}
 				$content = "
-				שלום ,<br>
+				".__("שלום", 'agwee-contracts-text')." ,<br>
 				<br>
-				הסכם עבודה על שם : ".$user_found['firstname']." ".$user_found['lastname']."<br>
+				".__("הסכם עבודה על שם", 'agwee-contracts-text')." : ".$user_found['firstname']." ".$user_found['lastname']."<br>
 				<br>
-				".$approve_state_str." מכתובת המייל: ".$email_str_notification." <br/>IP: ".$ip_str_notification."
+				".$approve_state_str." ".__("מכתובת המייל", 'agwee-contracts-text').": ".$email_str_notification." <br/>IP: ".$ip_str_notification."
 				<br>".$approve_note."
 				<br>
-				בברכה,<br>
+				".__("בברכה", 'agwee-contracts-text').",<br>
 				".stripslashes($user_details['name'])."<br>
 					".$_SERVER['HTTP_HOST']."
 				";
@@ -1457,16 +1457,16 @@ class AgweeContracts_frontend{
 				unset($_SESSION['contract_apply_'.$contract_apply_id.'_user']);
 				unset($_SESSION['approve_user']);
 				if($_REQUEST['final_approve'] == '1'){
-					echo "<b style='color:green;font-size:18px;'>החוזה אושר בהצלחה</b>";
+					echo "<b style='color:green;font-size:18px;'>".__("החוזה אושר בהצלחה", 'agwee-contracts-text')."</b>";
 				}
 				else{
-					echo "<b style='color:green;font-size:18px;'>הערתך התקבלה ותועבר להנהלת האתר. תודה.</b>";
+					echo "<b style='color:green;font-size:18px;'>".__("הערתך התקבלה ותועבר להנהלת האתר. תודה.", 'agwee-contracts-text')."</b>";
 				}
 				agweeContracts_handler::get_ob_clean();
 			}
 			else{
 				ob_start();
-				echo "<b style='color:red;font-size:18px;'>החוזה כבר אושר מכתובת המייל שלך</b>";
+				echo "<b style='color:red;font-size:18px;'>".__("החוזה כבר אושר מכתובת המייל שלך", 'agwee-contracts-text')."</b>";
 				agweeContracts_handler::get_ob_clean();
 			}
 			
@@ -1480,25 +1480,25 @@ class AgweeContracts_frontend{
 		if(isset($_REQUEST['for_email'])){
 			$email_find = $_REQUEST['for_email'];
 			if($email_find == ""){
-				$form_msg = "כתובת המייל שרשמת אינה תקינה";
+				$form_msg = "".__("כתובת המייל שרשמת אינה תקינה", 'agwee-contracts-text')."";
 			}
 		}
 		if($email_find == ""){
 			?>
 			
-			<h3>מציאת חוזה לפי כתובת מייל</h3>
+			<h3><?php echo __("מציאת חוזה לפי כתובת מייל", 'agwee-contracts-text'); ?></h3>
 			<?php if($form_msg != ""): ?>
 				<b style="color:red;"><?php echo $form_msg; ?></b>
 			<?php endif; ?>
 			<p>
-			כאן ניתן לאתר חוזים חתומים שמשוייכים לכתובת המייל שלך
+			<?php echo __("כאן ניתן לאתר חוזים חתומים שמשוייכים לכתובת המייל שלך", 'agwee-contracts-text'); ?>
 			</p>
 			
 			<form action="?m=work_contract_find" method="POST">
-				<label>רשום כאן את כתובת המייל שלך</label>
+				<label><?php echo __("רשום כאן את כתובת המייל שלך", 'agwee-contracts-text'); ?></label>
 				<br/>
 				<input type="email" class="email" name="for_email" />
-				<input type="submit" value="אתר את החוזים שלי"/>
+				<input type="submit" value="<?php echo __("אתר את החוזים שלי", 'agwee-contracts-text'); ?>"/>
 			</form>
 			<?php
 		}
@@ -1506,7 +1506,7 @@ class AgweeContracts_frontend{
 			$send_contracts_msg = "";
 			if(isset($_REQUEST['send_contracts'])){
 				if(empty($_REQUEST['send_contract'])){
-					$send_contracts_msg = "לא סומנו חוזים לשליחה";
+					$send_contracts_msg = "".__("לא סומנו חוזים לשליחה", 'agwee-contracts-text')."";
 				}
 				else{
 					$contracts = array();
@@ -1551,33 +1551,33 @@ class AgweeContracts_frontend{
 									$approve_key = $email_approved_arr[1];
 							}
 						}
-						$email_title = "שליחה חוזרת של חוזה: ";
+						$email_title = "".__("שליחה חוזרת של חוזה", 'agwee-contracts-text').": ";
 						$email_title.= $contract['title'];
-						$email_title.= " בין: ";
+						$email_title.= " ".__("בין", 'agwee-contracts-text').": ";
 						$email_title.= implode(",",$users_title_arr);
-						$email_content = "שלום ";
+						$email_content = "".__("שלום", 'agwee-contracts-text')." ";
 						$email_content.= $email_user['firstname']." ".$email_user['lastname'].".<br/>";
 						$contract_file_email = null;
 						if($contract['pdf_path'] == ""){						
 							$enter_url = $general_page_url."&enter=$approve_key&contract_apply=$contract_apply_id";				
-							$email_content.= "לצפייה ועדכון פרטי החוזה: ";
+							$email_content.= "".__("לצפייה ועדכון פרטי החוזה", 'agwee-contracts-text').": ";
 							$email_content.= $contract['title'];
-							$email_content.= " שנחתם בין: ";
+							$email_content.= " ".__("שנחתם בין", 'agwee-contracts-text').": ";
 							$email_content.= implode(",",$users_title_arr);	
 							$email_content.= "<br/>";
-							$email_content.= " לחץ על הלינק הבא:  <br/>";
-							$email_content.= "<a href = '$enter_url'>לחץ כאן לצפייה ועדכון החוזה</a><br/>";
+							$email_content.= " ".__("לחץ על הלינק הבא", 'agwee-contracts-text').":  <br/>";
+							$email_content.= "<a href = '$enter_url'>".__("לחץ כאן לצפייה ועדכון החוזה", 'agwee-contracts-text')."</a><br/>";
 						}
 						else{
 							$contract_file_email = array($contract['pdf_path']);
-							$email_content.= "מצורף קובץ החוזה - ";
+							$email_content.= "".__("מצורף קובץ החוזה", 'agwee-contracts-text')." - ";
 							$email_content.= $contract['title'];
-							$email_content.= " שנחתם בין: ";
+							$email_content.= " ".__("שנחתם בין", 'agwee-contracts-text').": ";
 							$email_content.= implode(",",$users_title_arr);	
 							$email_content.= "<br/>";
 							if($approve_key && $approve_key != '1'){
 								$approve_url = $general_page_url."&approve=$approve_key&contract_apply=$contract_apply_id";
-								$email_content.= "<a href = '$approve_url'>לחץ כאן על מנת לאשר את אמינות החוזה</a><br/>";
+								$email_content.= "<a href = '$approve_url'>".__("לחץ כאן על מנת לאשר את אמינות החוזה", 'agwee-contracts-text')."</a><br/>";
 							}
 						}
 						$email_content.= "בברכה,<br/>";
@@ -1593,11 +1593,11 @@ class AgweeContracts_frontend{
 													</html>";
 						$ClientMail = $email_find;	
 						agweeContracts_handler::send_emails($this->callbeck_class, $header_send_to_Client, $content_send_to_Client, $ClientMail,$contract_file_email);
-						$send_contracts_msg = "החוזים שביקשת נשלחו אל כתובת המייל: ".$email_find;		
+						$send_contracts_msg = "".__("החוזים שביקשת נשלחו אל כתובת המייל", 'agwee-contracts-text').": ".$email_find;		
 						$contracts[] = $contract;
 					}
 					if(empty($contracts)){
-						$send_contracts_msg = "לא סומנו חוזים לשליחה";
+						$send_contracts_msg = "".__("לא סומנו חוזים לשליחה", 'agwee-contracts-text')."";
 					}
 				}
 			}
@@ -1614,7 +1614,7 @@ class AgweeContracts_frontend{
 			$find_res = $this->wpcon->get_results($find_sql,ARRAY_A);		
 			foreach($find_res as $contract){
 				if($contract['title'] == ""){
-					$contract['title'] = "ללא כותרת";
+					$contract['title'] = "".__("ללא כותרת", 'agwee-contracts-text')."";
 				}
 				else{
 					$contract['title'] = $contract['title'];
@@ -1634,16 +1634,16 @@ class AgweeContracts_frontend{
 			}
 			
 			?>
-			<h3>מציאת חוזה לפי כתובת מייל <?php echo $email_find; ?></h3>
-			<a href="?m=work_contract_find"><<<חזור</a><br/>
+			<h3><?php echo __("מציאת חוזה לפי כתובת מייל", 'agwee-contracts-text'); ?> <?php echo $email_find; ?></h3>
+			<a href="?m=work_contract_find"><<<<?php echo __("חזור", 'agwee-contracts-text'); ?></a><br/>
 			<?php if(empty($contracts_found)): ?>
-				<p><b style="color:red;">לא נמצאו חוזים לכתובת מייל זו</b></p>
+				<p><b style="color:red;"><?php echo __("לא נמצאו חוזים לכתובת מייל זו", 'agwee-contracts-text'); ?></b></p>
 			<?php else: ?>
 				<?php if($send_contracts_msg != ""): ?>
 					<p><b style="color:green;"><?php echo $send_contracts_msg; ?></b></p>
 				<?php endif; ?>
-				<b>נמצאו <?php echo count($contracts_found); ?> חוזים: </b>
-				<p>סמן את החוזים שברצונך שיילחו אליך למייל</p>
+				<b><?php echo sprintf(__("נמצאו %s חוזים", 'agwee-contracts-text'),count($contracts_found)); ?>: </b>
+				<p><?php echo __("סמן את החוזים שברצונך שיילחו אליך למייל", 'agwee-contracts-text'); ?></p>
 				
 				<form action="?m=work_contract_find" method="POST">
 					<input type="hidden" name="for_email" value="<?php echo $email_find; ?>" />
@@ -1651,9 +1651,9 @@ class AgweeContracts_frontend{
 					<table border="1" cellpadding="10px;" style="border-collapse:collapse;">
 						<tr>
 							<th></th>
-							<th>כותרת</th>
-							<th>שמות</th>
-							<th>אימיילים</th>
+							<th><?php echo __("כותרת", 'agwee-contracts-text'); ?></th>
+							<th><?php echo __("שמות", 'agwee-contracts-text'); ?></th>
+							<th><?php echo __("אימיילים", 'agwee-contracts-text'); ?></th>
 						</tr>
 						<?php foreach($contracts_found as $contract): ?>
 							<tr>
@@ -1666,10 +1666,10 @@ class AgweeContracts_frontend{
 					</table>
 					<br/>
 					<br/>
-					<input type="submit" value="שלח את החוזים המסומנים אל כתובת המייל שלי"/>
+					<input type="submit" value="<?php echo __("שלח את החוזים המסומנים אל כתובת המייל שלי", 'agwee-contracts-text'); ?>"/>
 				</form>			
 			<?php endif; ?>
-			<a href="?m=work_contract_find" style="font-size:18px;">חזרה לאיתור חוזה</a>
+			<a href="?m=work_contract_find" style="font-size:18px;"><?php echo __("חזרה לאיתור חוזה", 'agwee-contracts-text'); ?></a>
 			<?php
 		}
 		$page_content = ob_get_clean();
@@ -1687,7 +1687,7 @@ class AgweeContracts_frontend{
 			}		
 			$signatures_footer_html = "";
 
-			$signatures_footer_html = "<div style='padding:5px; border:1px solid gray;'>חתימות בעמוד</div>";
+			$signatures_footer_html = "<div style='padding:5px; border:1px solid gray;'>".__("חתימות בעמוד", 'agwee-contracts-text')."</div>";
 			
 			$contract_content = $contract_data['content'];
 
@@ -1799,43 +1799,43 @@ class AgweeContracts_frontend{
 				$approve_key = $email_user['approve_key']; 
 				$user_email = $user_details['email'];					
 
-				$email_content = "שלום ";
+				$email_content = "".__("שלום", 'agwee-contracts-text')." ";
 				$email_content.= $email_user['firstname']." ".$email_user['lastname'].".<br/>";
 				$contract_file_email = null;
 				if($contract['pdf_path'] == ""){
-					$email_title = "בקשה לעדכון חוזה: ";
+					$email_title = "".__("בקשה לעדכון חוזה", 'agwee-contracts-text').": ";
 					$enter_url = $general_page_url."&enter=$approve_key&contract_apply=$contract_apply_id";									
-					$email_content.= "נמצא חוזה על שמך, הממתין לעדכון וחתימה: ";
+					$email_content.= "".__("נמצא חוזה על שמך, הממתין לעדכון וחתימה", 'agwee-contracts-text').": ";
 					$email_content.= $contract['title'];
-					$email_content.= " שנחתם בין: ";
+					$email_content.= " ".__("שנחתם בין", 'agwee-contracts-text').": ";
 					$email_content.= implode(",",$users_title_arr);	
 					$email_content.= "<br/>";
-					$email_content.= " ונוצר ב ".$contract['sign_time'];
+					$email_content.= " ".__("ונוצר ב", 'agwee-contracts-text')." ".$contract['sign_time'];
 					$email_content.= "<br/>";
-					$email_content.= "לצפייה ועדכון פרטי החוזה, ";
-					$email_content.= " לחץ על הלינק הבא:  <br/>";
-					$email_content.= "<a href = '$enter_url'>לחץ כאן לצפייה ועדכון החוזה</a><br/>";
+					$email_content.= "".__("לצפייה ועדכון פרטי החוזה", 'agwee-contracts-text').", ";
+					$email_content.= " ".__("לחץ על הלינק הבא", 'agwee-contracts-text').":  <br/>";
+					$email_content.= "<a href = '$enter_url'>".__("לחץ כאן לצפייה ועדכון החוזה", 'agwee-contracts-text')."</a><br/>";
 				}
 				else{
-					$email_title = "בקשה לאישור אמינות חוזה: ";
+					$email_title = "".__("בקשה לאישור אמינות חוזה", 'agwee-contracts-text').": ";
 					$contract_file_email = array($contract['pdf_path']);
-					$email_content.= "מצורף קובץ החוזה - ";
+					$email_content.= "".__("מצורף קובץ החוזה", 'agwee-contracts-text')." - ";
 					$email_content.= $contract['title'];
-					$email_content.= " שנחתם בין: ";
+					$email_content.= " ".__("שנחתם בין", 'agwee-contracts-text').": ";
 					$email_content.= implode(",",$users_title_arr);	
 					$email_content.= "<br/>";
-					$email_content.= "הסכם זה ממתין שתאשר את אמינותו.";
+					$email_content.= "".__("הסכם זה ממתין שתאשר את אמינותו.", 'agwee-contracts-text')."";
 					$email_content.= "<br/>";
 					if($approve_key && $approve_key != '1'){
 						$approve_url = $general_page_url."&approve=$approve_key&contract_apply=$contract_apply_id";
-						$email_content.= "<a href = '$approve_url'>לחץ כאן על מנת לאשר את אמינות החוזה</a><br/>";
+						$email_content.= "<a href = '$approve_url'>".__("לחץ כאן על מנת לאשר את אמינות החוזה", 'agwee-contracts-text')."</a><br/>";
 					}
 				}
 				$email_title.= $contract['title'];
-				$email_title.= " בין: ";
+				$email_title.= " ".__("בין", 'agwee-contracts-text').": ";
 				$email_title.= implode(",",$users_title_arr);
 				
-				$email_content.= "בברכה,<br/>";
+				$email_content.= "".__("בברכה", 'agwee-contracts-text').",<br/>";
 				$email_content.= stripslashes($user_details['name']);
 				$email_content.= "<br>";
 				$email_content.= $host;

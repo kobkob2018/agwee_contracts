@@ -1,0 +1,412 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2020-10-06 00:57+0300\n"
+"PO-Revision-Date: 2020-10-06 01:39+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: he\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.1\n"
+"X-Poedit-Basepath: ../inc/admin\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? 2 : 3);\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-SearchPath-0: contracts_admin.php\n"
+
+#
+msgid "Submitted contracts list"
+msgstr "רשימת החוזים שנחתמו באתר"
+
+#
+msgid "Search"
+msgstr "חיפוש"
+
+#
+msgid "Email"
+msgstr "אימייל"
+
+#
+msgid "First name"
+msgstr "שם פרטי"
+
+#
+msgid "Last name"
+msgstr "שם משפחה"
+
+#
+msgid "Contract title"
+msgstr "שם חוזה"
+
+#
+msgid "From date"
+msgstr "מתאריך"
+
+#
+msgid "To date"
+msgstr "עד תאריך"
+
+#
+msgid "Begin list from none approved"
+msgstr "התחל רשימה ממיילים שלא אושרו"
+
+#
+msgid "No contracts was selected for the task"
+msgstr "לא סומנו חוזים לביצוע הפעולה"
+
+#
+msgid "The contracts got cancelled"
+msgstr "החוזים בוטלו בהצלחה"
+
+#
+msgid "No contracts was selected to send"
+msgstr "לא סומנו חוזים לשליחה"
+
+#
+msgid "Resend contract"
+msgstr "שליחה חוזרת של חוזה"
+
+#
+msgid "Between"
+msgstr "בין"
+
+#
+msgid "Hello"
+msgstr "שלום"
+
+#
+msgid "To watch and update the contract"
+msgstr "לצפייה ועדכון פרטי החוזה"
+
+#
+msgid "Signed between"
+msgstr "שנחתם בין"
+
+#
+msgid "Click the next link"
+msgstr "לחץ על הלינק הבא"
+
+#
+msgid "Attached, the pdf of the contract"
+msgstr "מצורף קובץ החוזה"
+
+#
+msgid "Click here to approve the reliability of the contract"
+msgstr "לחץ כאן על מנת לאשר את אמינות החוזה"
+
+#
+msgid "Greetings"
+msgstr "בברכה"
+
+#
+msgid "Resend contract to site admin"
+msgstr "שליחת חוזה למנהל האתר"
+
+#
+msgid "The selected contracts Sent successfully"
+msgstr "החוזים שביקשת נשלחו בהצלחה"
+
+#
+msgid "Update details"
+msgstr "עדכון פרטים"
+
+#
+msgid "A pdf created"
+msgstr "הופק קובץ"
+
+#
+msgid "No title"
+msgstr "ללא כותרת"
+
+#
+msgid "No contracts found"
+msgstr "לא נמצאו חוזים"
+
+#
+msgid "%s contracts found"
+msgstr "נמצאו %s חוזים"
+
+#
+msgid "Please select the contracts to send to your mailbox"
+msgstr "סמן את החוזים שברצונך שיילחו אליך למייל"
+
+#
+msgid "Select"
+msgstr "בחירה"
+
+#
+msgid "Date"
+msgstr "תאריך"
+
+#
+msgid "IP"
+msgstr "IP"
+
+#
+msgid "Emails"
+msgstr "אימיילים"
+
+#
+msgid "Names"
+msgstr "שמות"
+
+#
+msgid "Progress"
+msgstr "שלב התקדמות"
+
+#
+msgid "cancelled"
+msgstr "בוטל"
+
+#
+msgid "Approve IP or Decline reason"
+msgstr "IP אישור/סיבת דחייה"
+
+#
+msgid "Approved"
+msgstr "אישרו"
+
+#
+msgid "Waiting for approve"
+msgstr "לא אישרו"
+
+#
+msgid "Send selected"
+msgstr "שלח את המסומנים"
+
+#
+msgid "Send only to me"
+msgstr "שלח רק אליי"
+
+#
+msgid "Send to all participants"
+msgstr "שלח אל כל המעורבים"
+
+#
+msgid "Cancel the contract"
+msgstr "בטל חוזה"
+
+#
+msgid "Only done cotracts with PDF will be sent to admin"
+msgstr "אל מנהל האתר יישלחו רק חוזים שהקובץ שלהם כבר הופק"
+
+#
+msgid "Back to Contract list"
+msgstr "חזרה לרשימת החוזים"
+
+#
+msgid "Contract PDF"
+msgstr "PDF של החוזה"
+
+#
+msgid "Edit Contract"
+msgstr "עריכת חוזה"
+
+#
+msgid "Main settings"
+msgstr "פרטים כלליים"
+
+#
+msgid "Contract fields"
+msgstr "שדות בחוזה"
+
+#
+msgid "Content"
+msgstr "תוכן"
+
+#
+msgid "Do you want to delete this contract?"
+msgstr "האם אתה בטוח שברצונך למחוק את החוזה?"
+
+#
+msgid "Delete"
+msgstr "מחיקה"
+
+#
+msgid "Shortcode to add the contract form to content"
+msgstr "שורטקוד להוספת הטופס"
+
+#
+msgid "Contracts Management"
+msgstr "ניהול חוזים"
+
+#
+msgid "Create a new Contract"
+msgstr "צור חוזה חדש"
+
+#
+msgid "The Contract title"
+msgstr "כותרת החוזה"
+
+#
+msgid "Contracts list"
+msgstr "רשימת חוזים"
+
+#
+msgid "Unable to upload image(supported extentions: gif,jpg,png)"
+msgstr "התמונה שהעלית לא תקינה(ניתן להעלות קבצים עם הסיומות הבאות בלבד: gif,jpg,png)"
+
+#
+msgid "The image you try to upload is too large"
+msgstr "התמונה שהעלית גדולה מידיי"
+
+#
+msgid "Title"
+msgstr "כותרת"
+
+#
+msgid "Identifier(For system use. can leave this empty)"
+msgstr "מזהה(לצרכי מערכת,ניתן להשאיר ריק)"
+
+#
+msgid "Text margins"
+msgstr "מיקום טקסט"
+
+#
+msgid "Margin top"
+msgstr "מרחק מלמעלה"
+
+#
+msgid "Margin bottom"
+msgstr "מרחק מלמטה"
+
+#
+msgid "Header image"
+msgstr "תמונת ראש"
+
+#
+msgid "Footer image"
+msgstr "תמונת תחתית"
+
+#
+msgid "Save"
+msgstr "שמירה"
+
+#
+msgid "The Contract fields"
+msgstr "שדות למילוי בחוזה"
+
+#
+msgid "Global details"
+msgstr "פרטים כלליים"
+
+#
+msgid "Global fields"
+msgstr "שדות כלליים"
+
+#
+msgid "Show"
+msgstr "הצג"
+
+#
+msgid "Hide"
+msgstr "הסתר"
+
+#
+msgid "Tag"
+msgstr "תגית"
+
+#
+msgid "Location"
+msgstr "מיקום"
+
+#
+msgid "Field Title"
+msgstr "כותרת השדה"
+
+#
+msgid "Default value"
+msgstr "ערך ברירת מחדל"
+
+#
+msgid "Is required"
+msgstr "שדה חובה"
+
+#
+msgid "Field type"
+msgstr "סוג השדה"
+
+#
+msgid "Allow edit"
+msgstr "אפשר עריכה"
+
+#
+msgid "Remove field"
+msgstr "הסר שדה"
+
+#
+msgid "Add a Global field"
+msgstr "הוסף שדה כללי"
+
+#
+msgid "Participants"
+msgstr "משתתפים"
+
+#
+msgid "Role"
+msgstr "תפקיד"
+
+#
+msgid "Remove participant"
+msgstr "הסר משתתף"
+
+#
+msgid "Add field to participant"
+msgstr "הוסף שדה למשתתף"
+
+#
+msgid "Add participant"
+msgstr "הוסף משתתף"
+
+#
+msgid "Click here to save"
+msgstr "לחץ כאן לשמירה"
+
+#
+msgid "Fields"
+msgstr "שדות"
+
+#
+msgid "Remove the participant?"
+msgstr "האם להסיר את המשתתף?"
+
+#
+msgid "Remove the field?"
+msgstr "האם להסיר את השדה?"
+
+#
+msgid "The contract content"
+msgstr "תוכן החוזה"
+
+#
+msgid "The fields to add"
+msgstr "שדות להוספה"
+
+#
+msgid "Add Appendix"
+msgstr "הוסף נספח לחוזה"
+
+#
+msgid "Appendix"
+msgstr "נספח"
+
+#
+msgid "Click here to add the selected field to the content"
+msgstr "לחץ כאן להוספת הערך הנבחר"
+
+#
+msgid "The contract content here!"
+msgstr "תוכן החוזה כאן!"
+
+msgid "Agwee Contract POST"
+msgstr "פוסט של טופס לחוזה"
+
+msgid "Agwee Contracts"
+msgstr "ניהול חוזים"
+
+msgid "Submitted contracts"
+msgstr "חוזים ממומשים"
+
+msgid "Contract templates"
+msgstr "תבניות חוזים"
